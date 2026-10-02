@@ -34,7 +34,7 @@ Env vars live in `.env.local` (template: `.env.example`): `NEXT_PUBLIC_SUPABASE_
 
 **Styling:** much of the UI uses inline Tailwind arbitrary values and scoped `<style>` blocks with a fixed palette (`#E8192C` red, `#0D0F14` ink, `#4A5068`/`#8892AA` greys) and fonts exposed as CSS variables in `app/layout.tsx` (`--oxanium`, `--space-mono`, `--inter`, plus local `incognito`/`gitlabmono` from `components/fonts`). Match this neo-brutalist style (thick borders, hard offset shadows) when adding UI. Rendered article HTML is styled through `.article-content` in `globals.css`.
 
-BLOG_WORKFLOW.md has the full author-facing guide (frontmatter fields, image handling, troubleshooting).
+`blog-templates/` holds the author guide (README.md: frontmatter rules, writing quirks, SEO checklist) and post templates. Copy a template into `blog-posts/` to write a post; `npm run upload-blogs -- --dry-run` validates without uploading. BLOG_WORKFLOW.md is older background on setup and the pipeline.
 
 ## Search rule
 

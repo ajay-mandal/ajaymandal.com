@@ -3,8 +3,10 @@
  * 
  * Usage:
  *   1. Place your markdown files in a 'blog-posts' folder at the root
+ *      (start from a template in blog-templates/)
  *   2. Set SUPABASE environment variables in .env.local
- *   3. Run: npm run upload-blogs
+ *   3. Check first: npm run upload-blogs -- --dry-run
+ *   4. Upload:      npm run upload-blogs
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -21,6 +23,9 @@ import {
 // Load environment variables from .env.local
 config({ path: ".env.local" });
 
+// --dry-run parses and validates every post without touching Supabase
+const DRY_RUN = process.argv.includes("--dry-run");
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -29,14 +34,39 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 // Use service role key for uploads (bypasses RLS), fall back to anon key
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
+if (!DRY_RUN && (!supabaseUrl || !supabaseKey)) {
   console.error("❌ Error: Supabase credentials not found in environment variables");
   console.error("Make sure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in .env.local");
   console.error("Or add an insert policy to allow anon key uploads");
   process.exit(1);
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = DRY_RUN ? null : createClient(supabaseUrl, supabaseKey);
+
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+/** Returns [errors, warnings] for a post's frontmatter. Errors block the upload. */
+function validateFrontmatter(frontmatter, category) {
+  const errors = [];
+  const warnings = [];
+  if (!frontmatter.title) errors.push("missing `title`");
+  if (!frontmatter.slug) errors.push("missing `slug`");
+  else if (!SLUG_PATTERN.test(frontmatter.slug))
+    errors.push(`slug "${frontmatter.slug}" must be lowercase words joined by hyphens`);
+  if (!frontmatter.pubDatetime) errors.push("missing `pubDatetime`");
+  else if (Number.isNaN(new Date(frontmatter.pubDatetime).getTime()))
+    errors.push("`pubDatetime` is not a valid date");
+  if (!["project", "findings"].includes(category))
+    errors.push(`category "${category}" must be "project" or "findings"`);
+
+  const titleLength = (frontmatter.title || "").length + " — Ajay Mandal".length;
+  if (titleLength > 60) warnings.push(`title is ${titleLength} chars with the site suffix; Google cuts off around 60`);
+  if (!frontmatter.description) warnings.push("no `description`; an excerpt will be generated from the body");
+  else if (frontmatter.description.length > 160)
+    warnings.push(`description is ${frontmatter.description.length} chars; keep it under 160`);
+  if (!frontmatter.tags || frontmatter.tags.length === 0) warnings.push("no `tags`");
+  return [errors, warnings];
+}
 
 async function uploadBlogPost(filePath) {
   try {
@@ -54,6 +84,13 @@ async function uploadBlogPost(filePath) {
     // Determine category from frontmatter or auto-detect from tags
     const category =
       frontmatter.category || determineCategoryFromTags(frontmatter.tags || []);
+
+    const [errors, warnings] = validateFrontmatter(frontmatter, category);
+    warnings.forEach((w) => console.warn(`   ⚠️  ${w}`));
+    if (errors.length > 0) {
+      errors.forEach((e) => console.error(`   ❌ ${e}`));
+      return { success: false, error: errors.join("; ") };
+    }
 
     // Process ogImage path to cover_image URL
     let coverImage = null;
@@ -76,8 +113,17 @@ async function uploadBlogPost(filePath) {
       category: category,
       tags: frontmatter.tags || [],
       published: !frontmatter.draft,
-      published_at: frontmatter.modDatetime || frontmatter.pubDatetime,
+      // pubDatetime is the original publish date and must not move when a
+      // post is edited; modDatetime only feeds updated_at (dateModified).
+      published_at: new Date(frontmatter.pubDatetime).toISOString(),
     };
+
+    if (DRY_RUN) {
+      console.log(
+        `   ✅ Valid: "${blogPost.title}" → /blog/${blogPost.slug} [${category}${blogPost.published ? "" : ", draft"}]`,
+      );
+      return { success: true };
+    }
 
     // Check if post already exists
     const { data: existingPost } = await supabase
@@ -92,7 +138,9 @@ async function uploadBlogPost(filePath) {
         .from("posts")
         .update({
           ...blogPost,
-          updated_at: new Date().toISOString(),
+          updated_at: frontmatter.modDatetime
+            ? new Date(frontmatter.modDatetime).toISOString()
+            : new Date().toISOString(),
         })
         .eq("slug", blogPost.slug);
 
@@ -103,7 +151,11 @@ async function uploadBlogPost(filePath) {
       console.log(`✅ Updated: ${blogPost.title}`);
     } else {
       // Insert new post
-      const { error } = await supabase.from("posts").insert([blogPost]);
+      const { error } = await supabase.from("posts").insert([
+        frontmatter.modDatetime
+          ? { ...blogPost, updated_at: new Date(frontmatter.modDatetime).toISOString() }
+          : blogPost,
+      ]);
 
       if (error) {
         console.error(`❌ Error inserting post "${blogPost.title}":`, error.message);
@@ -120,7 +172,7 @@ async function uploadBlogPost(filePath) {
 }
 
 async function uploadAllBlogs() {
-  console.log("🚀 Starting blog upload process...\n");
+  console.log(DRY_RUN ? "🔍 Dry run: validating posts, nothing will be uploaded\n" : "🚀 Starting blog upload process...\n");
 
   // Get all markdown files from blog-posts directory
   const blogPostsDir = path.join(process.cwd(), "blog-posts");

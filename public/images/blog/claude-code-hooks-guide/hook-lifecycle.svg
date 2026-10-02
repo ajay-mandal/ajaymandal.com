@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 740" width="900" height="740" role="img" aria-labelledby="t d">
+  <title id="t">Where Claude Code hook events fire</title>
+  <desc id="d">A session starts (SessionStart), you send a prompt (UserPromptSubmit), Claude decides the next step. Each tool call is wrapped by PreToolUse and PostToolUse, then control returns to Claude. When Claude has no more tool calls, Stop fires; a Stop hook can block and send Claude back to work. SessionEnd fires when the session closes.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0D0F14"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E8192C"/></marker>
+    <style>
+      .ev{fill:#FFF5F6;stroke:#E8192C;stroke-width:3}
+      .pr{fill:#0D0F14}
+      .et{font:700 17px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#0D0F14}
+      .pt{font:600 16px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#FFFFFF}
+      .ln{stroke:#0D0F14;stroke-width:2.5;fill:none}
+      .lr{stroke:#E8192C;stroke-width:2.5;fill:none;stroke-dasharray:7 5}
+      .lb{font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .lbr{font:700 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#E8192C}
+      .nt{font:14px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .bd{font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#FFFFFF;letter-spacing:1px}
+    </style>
+  </defs>
+  <rect x="1.5" y="1.5" width="897" height="737" fill="#FFFFFF" stroke="#0D0F14" stroke-width="3"/>
+
+  <!-- main column -->
+  <rect class="ev" x="170" y="40" width="260" height="50"/><text class="et" x="300" y="71" text-anchor="middle">SessionStart</text>
+  <rect class="ev" x="170" y="120" width="260" height="50"/><text class="et" x="300" y="151" text-anchor="middle">UserPromptSubmit</text>
+  <rect class="pr" x="170" y="200" width="260" height="50"/><text class="pt" x="300" y="231" text-anchor="middle">Claude decides next step</text>
+  <rect class="ev" x="170" y="290" width="260" height="50"/><text class="et" x="300" y="321" text-anchor="middle">PreToolUse</text>
+  <rect class="pr" x="170" y="370" width="260" height="50"/><text class="pt" x="300" y="401" text-anchor="middle">Tool runs (Edit, Bash…)</text>
+  <rect class="ev" x="170" y="450" width="260" height="50"/><text class="et" x="300" y="481" text-anchor="middle">PostToolUse</text>
+  <rect class="ev" x="170" y="560" width="260" height="50"/><text class="et" x="300" y="591" text-anchor="middle">Stop</text>
+  <rect class="ev" x="170" y="660" width="260" height="50"/><text class="et" x="300" y="691" text-anchor="middle">SessionEnd</text>
+
+  <!-- straight arrows -->
+  <path class="ln" d="M300 90V118" marker-end="url(#a)"/>
+  <path class="ln" d="M300 170V198" marker-end="url(#a)"/>
+  <path class="ln" d="M300 250V288" marker-end="url(#a)"/>
+  <path class="ln" d="M300 340V368" marker-end="url(#a)"/>
+  <path class="ln" d="M300 420V448" marker-end="url(#a)"/>
+  <path class="ln" d="M300 610V658" marker-end="url(#a)"/>
+
+  <!-- PostToolUse back to Claude -->
+  <path class="ln" d="M430 475H470V237H432" marker-end="url(#a)"/>
+  <text class="lb" transform="translate(486 356) rotate(90)" text-anchor="middle">next tool call</text>
+
+  <!-- Claude done to Stop -->
+  <path class="ln" d="M170 225H120V585H168" marker-end="url(#a)"/>
+  <text class="lb" transform="translate(106 405) rotate(-90)" text-anchor="middle">no more tool calls</text>
+
+  <!-- Stop blocked back to Claude -->
+  <path class="lr" d="M430 585H520V213H432" marker-end="url(#r)"/>
+  <text class="lbr" transform="translate(536 400) rotate(90)" text-anchor="middle">Stop hook blocks: keep working</text>
+
+  <!-- annotations -->
+  <g>
+    <text class="nt" x="580" y="70">Load context, check tooling</text>
+    <rect x="580" y="128" width="88" height="20" fill="#E8192C"/><text class="bd" x="624" y="142" text-anchor="middle">CAN BLOCK</text>
+    <text class="nt" x="678" y="143">Add context or reject</text>
+    <rect x="580" y="298" width="88" height="20" fill="#E8192C"/><text class="bd" x="624" y="312" text-anchor="middle">CAN BLOCK</text>
+    <text class="nt" x="678" y="313">Guardrails, policy</text>
+    <text class="nt" x="580" y="480">Format, lint, log</text>
+    <rect x="580" y="568" width="88" height="20" fill="#E8192C"/><text class="bd" x="624" y="582" text-anchor="middle">CAN BLOCK</text>
+    <text class="nt" x="678" y="583">Final checks</text>
+    <text class="nt" x="580" y="690">Cleanup, logging</text>
+  </g>
+  <g>
+    <rect x="580" y="380" width="22" height="16" class="ev"/><text class="nt" x="612" y="393">Hook event</text>
+    <rect x="720" y="380" width="22" height="16" class="pr"/><text class="nt" x="752" y="393">Claude / tool</text>
+  </g>
+</svg>

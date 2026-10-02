@@ -36,5 +36,6 @@ yarn-error.log*
 next-env.d.ts
 .env
 /blog-posts
+/blog-templates
 # Added by code-review-graph
 .code-review-graph/
