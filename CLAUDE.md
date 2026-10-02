@@ -36,6 +36,10 @@ Env vars live in `.env.local` (template: `.env.example`): `NEXT_PUBLIC_SUPABASE_
 
 BLOG_WORKFLOW.md has the full author-facing guide (frontmatter fields, image handling, troubleshooting).
 
+## Search rule
+
+Every code search in this repo goes through the code-review-graph MCP tools first (`semantic_search_nodes`, `query_graph`, `get_impact_radius`, etc.). This covers finding a symbol, tracing usages, scoping a change, and answering "where is X". Use Grep/Glob/Read only for what the graph can't answer: non-code files (Markdown, CSS, JSON config), string literals, or reading a file the graph already pointed you to. When delegating a search to a subagent, tell it to use the graph tools too. If results look stale, run `code-review-graph update` (or `build` for a full re-parse) before falling back.
+
 <!-- code-review-graph MCP tools -->
 ## MCP Tools: code-review-graph
 
