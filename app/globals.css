@@ -694,3 +694,7 @@ pre:not(.shiki):not(.shiki-themes) {
     font-size: 13px !important;
   }
 }
+/* Anchor targets for heading ids (lib/markdown.js) clear the fixed navbar */
+.article-content :is(h2, h3, h4)[id] {
+  scroll-margin-top: 6rem;
+}

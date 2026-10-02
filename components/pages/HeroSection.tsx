@@ -368,6 +368,8 @@ export default function HeroSection() {
                 src="/pp3.png"
                 alt="Ajay Mandal"
                 fill
+                loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 768px) 200px, 300px"
                 style={{ objectFit: "cover", objectPosition: "center top" }}
               />

@@ -10,6 +10,7 @@ import { HiOutlineX } from "react-icons/hi";
 const NAV_LINKS = [
   { title: "Home", href: "/" },
   { title: "About", href: "/about" },
+  { title: "Projects", href: "/projects" },
   { title: "Blog", href: "/blog" },
 ];
 

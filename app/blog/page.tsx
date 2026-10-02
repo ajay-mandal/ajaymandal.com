@@ -1,19 +1,47 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import BlogList from "@/components/pages/BlogList";
+import JsonLd from "@/components/global/JsonLd";
+import { AUTHOR, PERSON_ID, SITE_URL, WEBSITE_ID, absoluteUrl, pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Blog — Ajay Mandal",
-  description: "Project deep-dives and engineering findings by Ajay Mandal.",
-};
+const BLOG_DESCRIPTION =
+  "Engineering blog by Ajay Mandal: project deep-dives, backend architecture, Next.js, NestJS, authentication, cloud infrastructure and lessons from building real systems.";
+
+export const metadata = pageMetadata({
+  title: "Blog",
+  description: BLOG_DESCRIPTION,
+  path: "/blog",
+  ogSubtitle: "Project deep-dives & engineering findings",
+});
 
 export const revalidate = 60;
 
 export default async function BlogPage() {
   const posts = await getAllPosts();
 
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": absoluteUrl("/blog#blog"),
+    url: absoluteUrl("/blog"),
+    name: `${AUTHOR.name} — Blog`,
+    description: BLOG_DESCRIPTION,
+    inLanguage: "en-US",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@type": "Person", "@id": PERSON_ID, name: AUTHOR.name, url: SITE_URL },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      "@id": `${absoluteUrl(`/blog/${post.slug}`)}#article`,
+      headline: post.title,
+      url: absoluteUrl(`/blog/${post.slug}`),
+      datePublished: post.published_at,
+      dateModified: post.updated_at || post.published_at,
+    })),
+  };
+
   return (
     <main className="min-h-screen bg-[#FAFAFA]">
+      <JsonLd data={blogJsonLd} />
       {/* HERO SECTION */}
       <header className="relative bg-white pb-12 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden border-b-[3px] sm:border-b-[4px] lg:border-b-[6px] border-[#0D0F14]">
         {/* Animated background grid */}

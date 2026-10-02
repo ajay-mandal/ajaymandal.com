@@ -121,6 +121,24 @@ export default function Project() {
         >
           Selected <span style={{ color: "#E8192C" }}>Work</span>
         </h2>
+        <Link
+          href="/projects"
+          style={{
+            marginLeft: "auto",
+            fontFamily: "var(--space-mono)",
+            fontSize: ".6rem",
+            letterSpacing: ".18em",
+            textTransform: "uppercase",
+            color: "#4A5068",
+            textDecoration: "none",
+            borderBottom: "2px solid #E8192C",
+            paddingBottom: 2,
+            whiteSpace: "nowrap",
+          }}
+          className="hover:!text-[#E8192C]"
+        >
+          All Projects →
+        </Link>
       </div>
       </Slide>
 
@@ -178,7 +196,9 @@ export default function Project() {
                 marginBottom: "1rem",
               }}
             >
-              {featured.name}
+              <Link href={`/projects/${featured.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                {featured.name}
+              </Link>
             </h3>
 
             <p
@@ -216,6 +236,23 @@ export default function Project() {
 
             {/* Links */}
             <div style={{ display: "flex", gap: "clamp(.8rem, 2vw, 1.5rem)", flexWrap: "wrap" }}>
+              <Link
+                href={`/projects/${featured.slug}`}
+                style={{
+                  fontFamily: "var(--space-mono)",
+                  fontSize: "clamp(.52rem, 1.3vw, .56rem)",
+                  letterSpacing: ".14em",
+                  textTransform: "uppercase",
+                  color: "#E8192C",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(232,25,44,.5)",
+                  paddingBottom: 2,
+                  transition: "color .3s, border-color .3s",
+                }}
+                className="hover:!text-white hover:!border-white"
+              >
+                Details →
+              </Link>
               {featured.blogLink && (
                 <Link
                   href={featured.blogLink}
@@ -409,7 +446,9 @@ export default function Project() {
                       }}
                       className="group-hover:!text-white"
                     >
-                      {project.name}
+                      <Link href={`/projects/${project.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                        {project.name}
+                      </Link>
                     </h3>
 
                     {/* Tagline */}
@@ -444,6 +483,19 @@ export default function Project() {
 
                     {/* Links */}
                     <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap" }}>
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        style={{
+                          fontFamily: "var(--space-mono)", fontSize: ".55rem",
+                          letterSpacing: ".14em", textTransform: "uppercase",
+                          color: "#E8192C", textDecoration: "none",
+                          borderBottom: "1px solid rgba(232,25,44,.4)", paddingBottom: 2,
+                          transition: "color .3s, border-color .3s",
+                        }}
+                        className="group-hover:!text-white group-hover:!border-[rgba(255,255,255,.35)]"
+                      >
+                        Details →
+                      </Link>
                       <Link
                         href={project.github} target="_blank"
                         style={{
