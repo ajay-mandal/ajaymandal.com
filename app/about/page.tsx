@@ -2,10 +2,15 @@ import Image from "next/image";
 import { EDUCATIONS } from "@/data/education";
 import { JOBS } from "@/data/job";
 import { PUBLICATIONS } from "@/data/publications";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "About — Ajay Mandal",
-};
+export const metadata = pageMetadata({
+  title: "About",
+  description:
+    "About Ajay Mandal: backend engineer working on AI platforms, distributed systems and APIs. Experience, education, publications and the stack behind the work.",
+  path: "/about",
+  ogSubtitle: "Experience, education & publications",
+});
 
 export default function About() {
   return (

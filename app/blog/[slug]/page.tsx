@@ -4,6 +4,8 @@ import { getPostBySlug, getAllPosts, formatBlogDate } from "@/lib/blog";
 import type { Metadata } from "next";
 import type { BlogPost } from "@/lib/supabase";
 import { SharePost } from "@/components/global/SharePost";
+import JsonLd from "@/components/global/JsonLd";
+import { AUTHOR, PERSON_ID, SITE_NAME, SITE_URL, absoluteUrl, ogImageUrl } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -19,22 +21,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "Post Not Found" };
-  
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ajaymandal.vercel.app";
-  const postUrl = `${siteUrl}/blog/${slug}`;
-  const imageUrl = post.cover_image 
-    ? (post.cover_image.startsWith('http') ? post.cover_image : `${siteUrl}${post.cover_image}`)
-    : `${siteUrl}/og-default.png`;
-  
+  if (!post) return { title: "Post Not Found", robots: { index: false, follow: true } };
+
+  const postUrl = absoluteUrl(`/blog/${slug}`);
+  const imageUrl = postImageUrl(post);
+
   return {
-    title: `${post.title} — Ajay Mandal`,
+    title: post.title,
     description: post.excerpt,
+    keywords: post.tags,
+    authors: [{ name: AUTHOR.name, url: absoluteUrl("/about") }],
+    alternates: { canonical: postUrl },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       url: postUrl,
-      siteName: "Ajay Mandal",
+      siteName: SITE_NAME,
       images: [
         {
           url: imageUrl,
@@ -46,7 +48,9 @@ export async function generateMetadata({
       locale: "en_US",
       type: "article",
       publishedTime: post.published_at,
-      authors: ["Ajay Mandal"],
+      modifiedTime: post.updated_at || post.published_at,
+      authors: [absoluteUrl("/about")],
+      section: CATEGORY_LABEL[post.category],
       tags: post.tags,
     },
     twitter: {
@@ -54,9 +58,50 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       images: [imageUrl],
-      creator: "@ajaymandal01",
+      creator: AUTHOR.twitter,
     },
   };
+}
+
+function postImageUrl(post: BlogPost): string {
+  return post.cover_image
+    ? absoluteUrl(post.cover_image)
+    : ogImageUrl(post.title, post.category === "project" ? "Project deep-dive" : "Engineering findings");
+}
+
+function postJsonLd(post: BlogPost) {
+  const postUrl = absoluteUrl(`/blog/${post.slug}`);
+  const wordCount = post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": `${postUrl}#article`,
+      headline: post.title,
+      description: post.excerpt,
+      image: [postImageUrl(post)],
+      datePublished: post.published_at,
+      dateModified: post.updated_at || post.published_at,
+      url: postUrl,
+      mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+      author: { "@type": "Person", "@id": PERSON_ID, name: AUTHOR.name, url: SITE_URL },
+      publisher: { "@type": "Person", "@id": PERSON_ID, name: AUTHOR.name },
+      keywords: post.tags?.join(", "),
+      articleSection: CATEGORY_LABEL[post.category],
+      wordCount,
+      inLanguage: "en-US",
+      isPartOf: { "@type": "Blog", "@id": absoluteUrl("/blog#blog") },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog") },
+        { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+      ],
+    },
+  ];
 }
 
 const CATEGORY_LABEL: Record<BlogPost["category"], string> = {
@@ -117,10 +162,9 @@ export default async function PostPage({
   const relatedPosts = await getRelatedPosts(post);
   const { previous, next } = await getAdjacentPosts(slug);
   
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ajaymandal.vercel.app";
-
   return (
     <article className="blog-post-editorial">
+      <JsonLd data={postJsonLd(post)} />
       {/* HERO SECTION */}
       <header className="relative bg-[#FAFAFA] pb-10 sm:pb-14 lg:pt-32 lg:pb-16 overflow-hidden border-b-[3px] sm:border-b-[4px] lg:border-b-[6px] border-[#0D0F14]">
         {/* Animated background grid */}
@@ -294,7 +338,7 @@ export default async function PostPage({
       {/* SHARE POST SECTION */}
       <SharePost 
         title={post.title}
-        url={`${siteUrl}/blog/${post.slug}`}
+        url={absoluteUrl(`/blog/${post.slug}`)}
       />
 
       {/* NAVIGATION */}
