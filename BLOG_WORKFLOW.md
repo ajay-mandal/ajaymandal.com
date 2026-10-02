@@ -1,5 +1,7 @@
 # Blog Workflow Guide
 
+> **Writing a new post?** Start with [blog-templates/README.md](blog-templates/README.md). It has the current frontmatter rules, templates and the `--dry-run` check. This file is older background on the Supabase setup and pipeline.
+
 Complete guide for managing your blog posts with Markdown and Supabase.
 
 ## Table of Contents

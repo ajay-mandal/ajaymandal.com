@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500" role="img" aria-labelledby="t d">
+  <title id="t">The agentic loop and what starts the next turn</title>
+  <desc id="d">Claude gathers context, takes an action, then verifies the result. If verification fails, it goes back and tries again. If it passes, the turn ends. A timer from /loop, a not-met verdict from /goal, or a blocking Stop hook starts the next turn.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0D0F14"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E8192C"/></marker>
+    <style>
+      .pr{fill:#0D0F14}
+      .pt{font:700 18px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#FFFFFF}
+      .ps{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#C9CFDD}
+      .ln{stroke:#0D0F14;stroke-width:2.5;fill:none}
+      .lr{stroke:#E8192C;stroke-width:2.5;fill:none;stroke-dasharray:7 5}
+      .lb{font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .lbr{font:700 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#E8192C}
+      .end{fill:#F0F2F5;stroke:#0D0F14;stroke-width:3}
+      .et{font:700 16px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0D0F14}
+      .card{fill:#FFF5F6;stroke:#E8192C;stroke-width:3}
+      .ct{font:700 16px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#0D0F14}
+      .cs{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .hd{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#E8192C;letter-spacing:2px}
+    </style>
+  </defs>
+  <rect x="1.5" y="1.5" width="897" height="497" fill="#FFFFFF" stroke="#0D0F14" stroke-width="3"/>
+
+  <!-- the cycle -->
+  <rect class="pr" x="190" y="40" width="230" height="66"/>
+  <text class="pt" x="305" y="70" text-anchor="middle">1. Gather context</text>
+  <text class="ps" x="305" y="91" text-anchor="middle">read, search, run commands</text>
+
+  <rect class="pr" x="350" y="220" width="230" height="66"/>
+  <text class="pt" x="465" y="250" text-anchor="middle">2. Take action</text>
+  <text class="ps" x="465" y="271" text-anchor="middle">edit, migrate, open a PR</text>
+
+  <rect class="pr" x="40" y="220" width="230" height="66"/>
+  <text class="pt" x="155" y="250" text-anchor="middle">3. Verify</text>
+  <text class="ps" x="155" y="271" text-anchor="middle">tests, build, lint</text>
+
+  <path class="ln" d="M380 106L440 218" marker-end="url(#a)"/>
+  <path class="ln" d="M350 253H272" marker-end="url(#a)"/>
+  <path class="ln" d="M180 218L240 108" marker-end="url(#a)"/>
+  <text class="lb" x="140" y="158" text-anchor="end">fails:</text>
+  <text class="lb" x="140" y="176" text-anchor="end">try again</text>
+
+  <!-- turn ends -->
+  <path class="ln" d="M155 286V378" marker-end="url(#a)"/>
+  <text class="lb" x="165" y="338">passes</text>
+  <rect class="end" x="40" y="380" width="230" height="56"/>
+  <text class="et" x="155" y="414" text-anchor="middle">Turn ends</text>
+
+  <!-- triggers -->
+  <text class="hd" x="640" y="62">NEXT TURN STARTS WHEN</text>
+  <rect class="card" x="640" y="80" width="230" height="74"/>
+  <text class="ct" x="656" y="108">/loop</text>
+  <text class="cs" x="656" y="132">a timer fires</text>
+  <rect class="card" x="640" y="172" width="230" height="74"/>
+  <text class="ct" x="656" y="200">/goal</text>
+  <text class="cs" x="656" y="224">evaluator says “not met”</text>
+  <rect class="card" x="640" y="264" width="230" height="74"/>
+  <text class="ct" x="656" y="292">Stop hook</text>
+  <text class="cs" x="656" y="316">your check blocks</text>
+
+  <path class="lr" d="M640 117H612M640 209H612M640 301H612M612 117V301"/>
+  <path class="lr" d="M270 408H612V303"/>
+  <path class="lr" d="M612 117V73H422" marker-end="url(#r)"/>
+  <text class="lbr" x="600" y="64" text-anchor="end">back to step 1</text>
+</svg>
