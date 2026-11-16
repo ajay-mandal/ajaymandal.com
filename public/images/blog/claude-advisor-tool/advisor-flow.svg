@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360" role="img" aria-labelledby="t d">
+  <title id="t">How the Claude advisor tool works</title>
+  <desc id="d">The executor, a cheaper model, works through the task. At a decision point it calls the advisor, a stronger model. The advisor reads the full conversation and returns short guidance, about 400 to 700 text tokens. The executor then continues the task.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0D0F14"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E8192C"/></marker>
+    <style>
+      .pr{fill:#0D0F14}
+      .pt{font:700 18px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#FFFFFF}
+      .ps{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#C9CFDD}
+      .ln{stroke:#0D0F14;stroke-width:2.5;fill:none}
+      .lr{stroke:#E8192C;stroke-width:2.5;fill:none;stroke-dasharray:7 5}
+      .lb{font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .lbr{font:700 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#E8192C}
+      .card{fill:#FFF5F6;stroke:#E8192C;stroke-width:3}
+      .ct{font:700 18px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0D0F14}
+      .cs{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#4A5068}
+      .hd{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#E8192C;letter-spacing:2px}
+    </style>
+  </defs>
+  <rect x="1.5" y="1.5" width="897" height="357" fill="#FFFFFF" stroke="#0D0F14" stroke-width="3"/>
+
+  <text class="hd" x="40" y="40">EXECUTOR (CHEAPER MODEL)</text>
+  <text class="hd" x="560" y="40">ADVISOR (STRONGER MODEL)</text>
+
+  <!-- executor work -->
+  <rect class="pr" x="40" y="60" width="240" height="70"/>
+  <text class="pt" x="160" y="91" text-anchor="middle">Does the work</text>
+  <text class="ps" x="160" y="112" text-anchor="middle">reads, edits, runs tools</text>
+
+  <rect class="pr" x="40" y="250" width="240" height="70"/>
+  <text class="pt" x="160" y="281" text-anchor="middle">Continues the task</text>
+  <text class="ps" x="160" y="302" text-anchor="middle">applies the guidance</text>
+
+  <!-- advisor -->
+  <rect class="card" x="560" y="60" width="300" height="100"/>
+  <text class="ct" x="710" y="95" text-anchor="middle">Reads the full conversation</text>
+  <text class="cs" x="710" y="120" text-anchor="middle">every tool call and result</text>
+  <text class="cs" x="710" y="140" text-anchor="middle">no tools, never acts</text>
+
+  <rect class="card" x="560" y="230" width="300" height="90"/>
+  <text class="ct" x="710" y="265" text-anchor="middle">Returns short guidance</text>
+  <text class="cs" x="710" y="290" text-anchor="middle">about 400 to 700 text tokens</text>
+
+  <!-- arrows -->
+  <path class="ln" d="M160 130 V250" marker-end="url(#a)"/>
+  <text class="lb" x="172" y="175">1. most turns stay here</text>
+
+  <path class="lr" d="M280 95 H560" marker-end="url(#r)"/>
+  <text class="lbr" x="420" y="82" text-anchor="middle">2. asks at a decision point</text>
+
+  <path class="lr" d="M710 160 V230" marker-end="url(#r)"/>
+
+  <path class="lr" d="M560 275 H280" marker-end="url(#r)"/>
+  <text class="lbr" x="420" y="262" text-anchor="middle">3. advice comes back</text>
+</svg>
