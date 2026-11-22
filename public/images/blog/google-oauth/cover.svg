@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A key next to a shield with a check mark">
+  <rect width="1200" height="630" fill="#EFE7F1"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <circle cx="400" cy="315" r="78" fill="#FFFFFF"/>
+    <circle cx="400" cy="315" r="24" fill="#D3BCDD"/>
+    <path d="M478 315H612M566 315v44M606 315v30"/>
+    <path d="M780 168l124 46v108c0 84-52 136-124 166-72-30-124-82-124-166V214z" fill="#6A3D7C"/>
+    <path d="M728 322l36 36 70-80" stroke="#FAF8FA" stroke-width="10"/>
+  </g>
+</svg>

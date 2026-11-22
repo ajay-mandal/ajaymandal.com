@@ -12,11 +12,11 @@ tags:
   - gcp
   - nextjs
   - typescript
-ogImage: /images/blog/youtube-clone/youtube-clone.png
+ogImage: /images/blog/youtube-clone/cover.png
 description: "Building a YouTube clone's video pipeline on Google Cloud: transcoding on Cloud Run, Pub/Sub triggers, Cloud Storage buckets and Firebase auth."
 ---
 
-![yt clone cover image](/images/blog/youtube-clone/youtube-clone.png)
+![A video moving through processing into several stream sizes](/images/blog/youtube-clone/cover.svg)
 
 <div class="flex justify-between">
 
@@ -38,7 +38,7 @@ Youtube in itself is a complex app. I have tried to understand and build the vid
 
 ## System Design
 
-![system-design](/images/blog/youtube-clone/yt-clone-system-design.png)
+![system-design](/images/blog/youtube-clone/yt-clone-system-design.svg)
 
 ## Video Processing Service
 

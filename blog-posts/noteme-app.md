@@ -12,11 +12,11 @@ tags:
   - cloudflare
   - zod
   - prisma
-ogImage: /images/blog/noteme-app/noteme-app.png
+ogImage: /images/blog/noteme-app/cover.png
 description: "How I built NoteMe, a blogging app with Next.js and a Hono.js API on Cloudflare Workers, using Prisma for fast CRUD at the edge."
 ---
 
-![note-me-app](/images/blog/noteme-app/noteme-app.png)
+![A notebook with a bookmark next to a small cloud](/images/blog/noteme-app/cover.svg)
 
 <div class="flex justify-between">
 

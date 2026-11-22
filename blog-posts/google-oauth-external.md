@@ -9,8 +9,11 @@ tags:
   - google
   - Oauth
   - gcp
+ogImage: /images/blog/google-oauth/cover.png
 description: "Set up Google OAuth on GCP for an external app, step by step: create the project, configure the consent screen and generate OAuth client credentials."
 ---
+
+![A key next to a shield with a check mark](/images/blog/google-oauth/cover.svg)
 
 ### Google OAuth Service Configuration on external app
 

@@ -1,39 +1,24 @@
-<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
-  <rect width="720" height="420" fill="#0d1117" rx="12"/>
-  <rect width="720" height="40" fill="#161b22" rx="12"/>
-  <rect y="28" width="720" height="12" fill="#161b22"/>
-  <circle cx="24" cy="20" r="6" fill="#ff5f57"/>
-  <circle cx="44" cy="20" r="6" fill="#febc2e"/>
-  <circle cx="64" cy="20" r="6" fill="#28c840"/>
-  <text x="360" y="26" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">Skill Directory Structure</text>
-
-  <text x="30" y="75" fill="#58a6ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="14" font-weight="bold">~/.agents/skills/</text>
-  <text x="30" y="102" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13">└── my-skill/</text>
-
-  <text x="58" y="128" fill="#7ee787" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13">├── SKILL.md</text>
-  <text x="210" y="128" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">  # Required — the brain of the skill</text>
-
-  <text x="58" y="152" fill="#7ee787" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13">├── references/</text>
-  <text x="210" y="152" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">  # Detailed docs, loaded on demand</text>
-
-  <text x="58" y="176" fill="#7ee787" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13">├── scripts/</text>
-  <text x="210" y="176" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">     # Executable helpers (Python / Bash)</text>
-
-  <text x="58" y="200" fill="#7ee787" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13">└── assets/</text>
-  <text x="210" y="200" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">      # Templates, images, boilerplate</text>
-
-  <line x1="30" y1="220" x2="690" y2="220" stroke="#21262d" stroke-width="1"/>
-
-  <text x="30" y="248" fill="#e6edf3" font-family="ui-monospace,SFMono-Regular,monospace" font-size="13" font-weight="bold">SKILL.md</text>
-
-  <text x="30" y="272" fill="#ff7b72" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">---</text>
-  <text x="30" y="292" fill="#79c0ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">name</text>
-  <text x="88" y="292" fill="#e6edf3" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">: my-skill</text>
-  <text x="30" y="312" fill="#79c0ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">description</text>
-  <text x="160" y="312" fill="#e6edf3" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">: What it does and WHEN to use it...</text>
-  <text x="30" y="332" fill="#79c0ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">allowed-tools</text>
-  <text x="188" y="332" fill="#e6edf3" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">: Bash(git *), Read</text>
-  <text x="30" y="352" fill="#ff7b72" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">---</text>
-  <text x="30" y="376" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12"># Skill Title</text>
-  <text x="30" y="396" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">## When to Activate / Core Workflow / Examples...</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="Skill directory structure and SKILL.md anatomy">
+  <rect x="0.75" y="0.75" width="718.5" height="418.5" rx="12" fill="#FAF8FA" stroke="#E3DCE5" stroke-width="1.5"/>
+  <path d="M1 40H719" stroke="#E3DCE5" stroke-width="1.5"/>
+  <text x="24" y="26" fill="#6A6170" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" letter-spacing="1">SKILL DIRECTORY STRUCTURE</text>
+  <text x="30" y="75" fill="#6A3D7C" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14" font-weight="600" xml:space="preserve">~/.agents/skills/</text>
+  <text x="30" y="102" fill="#5E5563" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="400" xml:space="preserve">└── my-skill/</text>
+  <text x="58" y="128" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="400" xml:space="preserve">├── SKILL.md</text>
+  <text x="214" y="128" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve"># Required — the brain of the skill</text>
+  <text x="58" y="152" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="400" xml:space="preserve">├── references/</text>
+  <text x="214" y="152" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve"># Detailed docs, loaded on demand</text>
+  <text x="58" y="176" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="400" xml:space="preserve">├── scripts/</text>
+  <text x="214" y="176" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve"># Executable helpers (Python / Bash)</text>
+  <text x="58" y="200" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="400" xml:space="preserve">└── assets/</text>
+  <text x="214" y="200" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve"># Templates, images, boilerplate</text>
+  <path d="M30 220H690" stroke="#E3DCE5" stroke-width="1"/>
+  <text x="30" y="248" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" font-weight="600" xml:space="preserve">SKILL.md</text>
+  <text x="30" y="272" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">---</text>
+  <text y="292" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" xml:space="preserve"><tspan x="30" fill="#6A3D7C">name</tspan><tspan fill="#1E1822">: my-skill</tspan></text>
+  <text y="312" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" xml:space="preserve"><tspan x="30" fill="#6A3D7C">description</tspan><tspan fill="#1E1822">: What it does and WHEN to use it...</tspan></text>
+  <text y="332" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" xml:space="preserve"><tspan x="30" fill="#6A3D7C">allowed-tools</tspan><tspan fill="#1E1822">: Bash(git *), Read</tspan></text>
+  <text x="30" y="352" fill="#8A8090" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">---</text>
+  <text x="30" y="376" fill="#5E5563" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve"># Skill Title</text>
+  <text x="30" y="396" fill="#5E5563" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">## When to Activate / Core Workflow / Examples...</text>
 </svg>

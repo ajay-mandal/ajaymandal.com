@@ -11,8 +11,11 @@ tags:
   - ai-agents
   - automation
   - productivity
+ogImage: /images/blog/claude-code-loop-engineering/cover.png
 description: "Keep Claude Code working until the job is done: /loop for polling, /goal for end conditions, Stop hooks for checks, and how to design loops that stop."
 ---
+
+![A loop with three steps and an exit to a stop square](/images/blog/claude-code-loop-engineering/cover.svg)
 
 Claude Code works in a loop: gather context, act, check the result, repeat. Out of the box, _Claude_ decides when it's done. Loop engineering means taking control of that decision: what starts the next turn, how the work gets verified, and when it stops. Claude Code gives you three tools for it: `/loop` (run on a timer), `/goal` (run until a condition holds) and Stop hooks (your own check after every turn).
 

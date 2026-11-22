@@ -13,11 +13,11 @@ tags:
   - vscode
   - github-copilot
   - claude-code
-ogImage: /images/blog/claude-skills-guide/claude-skills-hero.svg
+ogImage: /images/blog/claude-skills-guide/cover.png
 description: "How Claude Skills work, how to write your own SKILL.md (with a real daily-summary example), and how to use skills in Claude Code and GitHub Copilot."
 ---
 
-![claude-skills-guide](/images/blog/claude-skills-guide/claude-skills-hero.svg)
+![A stack of skill cards with the top card open](/images/blog/claude-skills-guide/cover.svg)
 
 ## Why Skills Change Everything
 

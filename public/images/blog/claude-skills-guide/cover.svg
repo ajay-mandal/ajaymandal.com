@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A stack of skill cards with the top card open">
+  <rect width="1200" height="630" fill="#E6D9EB"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <rect x="470" y="150" width="290" height="350" rx="24" fill="#D3BCDD" transform="rotate(-9 615 325)"/>
+    <rect x="460" y="150" width="290" height="350" rx="24" fill="#FAF8FA" transform="rotate(4 605 325)"/>
+    <path d="M450 186a24 24 0 0 1 24-24h196l56 56v262a24 24 0 0 1-24 24H474a24 24 0 0 1-24-24z" fill="#FFFFFF"/>
+    <path d="M670 162v56h56"/>
+    <path d="M500 270h150M500 316h190M500 356h160M500 396h176"/>
+    <rect x="500" y="430" width="44" height="44" rx="10" fill="#6A3D7C"/>
+    <path d="M564 452h96" stroke-width="5" opacity=".4"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A video moving through processing into several stream sizes">
+  <rect width="1200" height="630" fill="#E6D9EB"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <rect x="270" y="230" width="230" height="170" rx="30" fill="#FFFFFF"/>
+    <path d="M360 270l84 45-84 45z" fill="#6A3D7C"/>
+    <path d="M528 315h90M596 294l22 21-22 21"/>
+    <circle cx="700" cy="315" r="60" fill="#D3BCDD"/>
+    <circle cx="700" cy="315" r="20" fill="#FAF8FA"/>
+    <path d="M700 240v-14M700 404v-14M625 315h-14M789 315h-14"/>
+    <path d="M782 315h80M840 294l22 21-22 21"/>
+    <rect x="890" y="252" width="110" height="26" rx="13" fill="#6A3D7C"/>
+    <rect x="890" y="302" width="84" height="26" rx="13" fill="#D3BCDD"/>
+    <rect x="890" y="352" width="58" height="26" rx="13" fill="#FFFFFF"/>
+  </g>
+</svg>

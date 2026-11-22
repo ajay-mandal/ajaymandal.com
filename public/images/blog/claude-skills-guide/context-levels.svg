@@ -1,27 +1,17 @@
-<svg width="720" height="340" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
-  <rect width="720" height="340" fill="#0d1117" rx="12"/>
-  <rect width="720" height="40" fill="#161b22" rx="12"/>
-  <rect y="28" width="720" height="12" fill="#161b22"/>
-  <circle cx="24" cy="20" r="6" fill="#ff5f57"/>
-  <circle cx="44" cy="20" r="6" fill="#febc2e"/>
-  <circle cx="64" cy="20" r="6" fill="#28c840"/>
-  <text x="360" y="26" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">Progressive Context Loading</text>
-
-  <!-- Level 1 -->
-  <rect x="30" y="60" width="660" height="72" fill="#0c2622" rx="8" stroke="#238636" stroke-width="1"/>
-  <text x="50" y="83" fill="#3fb950" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12" font-weight="bold">LEVEL 1 — Metadata (ALWAYS loaded)</text>
-  <text x="50" y="103" fill="#7ee787" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">name + description  (~100 words per skill)</text>
-  <text x="50" y="122" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11">Model always "knows" the skill exists. Works like a menu. 98 skills = ~10K tokens max.</text>
-
-  <!-- Level 2 -->
-  <rect x="30" y="146" width="660" height="72" fill="#11192a" rx="8" stroke="#1f6feb" stroke-width="1"/>
-  <text x="50" y="169" fill="#58a6ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12" font-weight="bold">LEVEL 2 — SKILL.md body (loads on trigger)</text>
-  <text x="50" y="189" fill="#79c0ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">Full instructions  (&lt;5k words recommended)</text>
-  <text x="50" y="208" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11">Loads when model OR user invokes the skill. Only one skill's body loads at a time.</text>
-
-  <!-- Level 3 -->
-  <rect x="30" y="232" width="660" height="72" fill="#1c1106" rx="8" stroke="#9e6a03" stroke-width="1"/>
-  <text x="50" y="255" fill="#e3b341" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12" font-weight="bold">LEVEL 3 — Bundled resources (on demand)</text>
-  <text x="50" y="275" fill="#f2cc60" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12">references/ · scripts/ · assets/  (unlimited)</text>
-  <text x="50" y="294" fill="#6e7681" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11">Scripts execute without being read into context. Loaded only when Claude decides they're needed.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340" role="img" aria-label="Three-level progressive context loading">
+  <rect x="0.75" y="0.75" width="718.5" height="338.5" rx="12" fill="#FAF8FA" stroke="#E3DCE5" stroke-width="1.5"/>
+  <path d="M1 40H719" stroke="#E3DCE5" stroke-width="1.5"/>
+  <text x="24" y="26" fill="#6A6170" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" letter-spacing="1">PROGRESSIVE CONTEXT LOADING</text>
+  <rect x="30" y="60" width="660" height="72" rx="10" fill="#EFE6F2" stroke="#6A3D7C" stroke-width="1.25"/>
+  <text x="50" y="83" fill="#6A3D7C" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="600" xml:space="preserve">LEVEL 1 — Metadata (ALWAYS loaded)</text>
+  <text x="50" y="103" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">name + description  (~100 words per skill)</text>
+  <text x="50" y="122" fill="#6A6170" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="400" xml:space="preserve">Model always "knows" the skill exists. Works like a menu. 98 skills = ~10K tokens max.</text>
+  <rect x="30" y="146" width="660" height="72" rx="10" fill="#F5F0F6" stroke="#B9A2C6" stroke-width="1.25"/>
+  <text x="50" y="169" fill="#6A3D7C" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="600" xml:space="preserve">LEVEL 2 — SKILL.md body (loads on trigger)</text>
+  <text x="50" y="189" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">Full instructions  (&lt;5k words recommended)</text>
+  <text x="50" y="208" fill="#6A6170" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="400" xml:space="preserve">Loads when model OR user invokes the skill. Only one skill's body loads at a time.</text>
+  <rect x="30" y="232" width="660" height="72" rx="10" fill="#FFFFFF" stroke="#DDD3E1" stroke-width="1.25"/>
+  <text x="50" y="255" fill="#6A3D7C" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="600" xml:space="preserve">LEVEL 3 — Bundled resources (on demand)</text>
+  <text x="50" y="275" fill="#1E1822" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" font-weight="400" xml:space="preserve">references/ · scripts/ · assets/  (unlimited)</text>
+  <text x="50" y="294" fill="#6A6170" font-family="'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="400" xml:space="preserve">Scripts execute without being read into context. Loaded only when Claude decides they're needed.</text>
 </svg>
