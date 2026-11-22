@@ -94,8 +94,8 @@ export default async function Home() {
           I build the backend for AI products, and write down what I learn shipping them.
         </h1>
         <p className="lede-body">
-          I work on multi-agent systems and RAG pipelines with TypeScript, NestJS, Postgres and
-          Google Cloud. Lately I mostly write about Claude Code and the agent tooling around it.
+          This is my technical notebook: write-ups of whatever I&apos;m learning, from backend systems
+          and AI agents to cloud infrastructure, developer tools and, lately, desktop apps.
         </p>
       </section>
 

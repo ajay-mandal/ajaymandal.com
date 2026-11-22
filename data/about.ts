@@ -40,6 +40,6 @@ export const SKILLS: string[] = [
 
 /** What I'm doing now. Update `updated` (YYYY-MM-DD) whenever the text changes. */
 export const NOW = {
-  text: "Writing more about Claude Code and agent tooling, working on DryMDF, and rebuilding this site to be quieter.",
+  text: "Trying out desktop app development, and writing up what I learn along the way.",
   updated: "2026-11-23",
 };

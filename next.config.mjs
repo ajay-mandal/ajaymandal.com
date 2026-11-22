@@ -12,6 +12,10 @@ const nextConfig = {
       },
       // The writing list is the homepage now; post URLs stay under /blog/.
       { source: "/blog", destination: "/", permanent: true },
+      // Removed projects: send old links to their write-ups.
+      { source: "/projects/youtube-clone", destination: "/blog/youtube-clone-backend", permanent: true },
+      { source: "/projects/noteme-app", destination: "/blog/noteme-app", permanent: true },
+      { source: "/projects/ecommerce-admin-dashboard", destination: "/projects", permanent: true },
     ];
   },
   // Markdown copy of each post for agents (see lib/llms.ts).

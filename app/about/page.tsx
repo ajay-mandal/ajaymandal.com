@@ -2,6 +2,7 @@ import Link from "next/link";
 import { NOW, SKILLS, STACK } from "@/data/about";
 import { socialLinks } from "@/data/social";
 import { formatBlogDate } from "@/lib/blog-shared";
+import GitHubActivity from "@/components/site/GitHubActivity";
 import JsonLd from "@/components/global/JsonLd";
 import { AUTHOR, WEBSITE_ID, absoluteUrl, pageMetadata, personJsonLd } from "@/lib/site";
 
@@ -12,6 +13,8 @@ export const metadata = pageMetadata({
   path: "/about",
   ogSubtitle: AUTHOR.jobTitle,
 });
+
+const GITHUB_USER = AUTHOR.sameAs.find((u) => u.includes("github.com"))?.split("/").pop() ?? "";
 
 const aboutJsonLd = {
   "@context": "https://schema.org",
@@ -68,10 +71,8 @@ export default function AboutPage() {
           <h3>I build the tools I want to use</h3>
           <p>
             <Link href="/projects/drymdf">DryMDF</Link>, a Markdown-to-PDF platform with live preview
-            and Mermaid diagrams, is the latest. Before it came a{" "}
-            <Link href="/projects/youtube-clone">YouTube clone</Link> with a full video pipeline and{" "}
-            <Link href="/projects/noteme-app">NoteMe</Link>, a blogging platform on Cloudflare
-            Workers. They&apos;re all on <a href="https://github.com/ajay-mandal">GitHub</a>.
+            and Mermaid diagrams, is the latest. Right now I&apos;m trying desktop app development.
+            Everything is on <a href="https://github.com/ajay-mandal">GitHub</a>.
           </p>
         </div>
 
@@ -87,8 +88,8 @@ export default function AboutPage() {
         <div className="block">
           <h2>What you&apos;ll find here</h2>
           <p>
-            Posts on backend engineering, AI agents and Claude Code. Mostly practical guides with the
-            config included, and the notes I wish I&apos;d had earlier.
+            Write-ups of what I learn: backend architecture, AI agents, cloud infrastructure and
+            developer tools, usually with the config included.
           </p>
         </div>
 
@@ -147,6 +148,13 @@ export default function AboutPage() {
           ))}
           <a href="/blog/rss.xml">RSS</a>
         </p>
+      </section>
+
+      <section className="section" style={{ paddingTop: 44, paddingBottom: 0 }} aria-labelledby="github-h">
+        <h2 id="github-h" className="section-label">
+          GitHub activity
+        </h2>
+        <GitHubActivity username={GITHUB_USER} />
       </section>
     </>
   );

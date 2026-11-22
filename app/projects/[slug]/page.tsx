@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PROJECT, getProjectBySlug, type ProjectProps } from "@/data/Projects";
 import JsonLd from "@/components/global/JsonLd";
+import { formatBlogDate } from "@/lib/blog-shared";
+import { getRepoStats, repoSlug } from "@/lib/github";
 import { AUTHOR, PERSON_ID, SITE_URL, absoluteUrl, pageMetadata } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -74,53 +76,61 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
+  const repo = await getRepoStats(project.github);
+
+  const stats = repo
+    ? [
+        ["Stars", String(repo.stars)],
+        ["Forks", String(repo.forks)],
+        ["Issues & PRs", String(repo.openIssues)],
+        ["Language", repo.language ?? "–"],
+        ["Last push", formatBlogDate(repo.pushedAt)],
+      ]
+    : [];
 
   return (
     <article>
       <JsonLd data={projectJsonLd(project)} />
       <Link href="/projects" className="back-link">
-        ← all projects
+        ← projects
       </Link>
 
-      <div className="post-head-meta">
-        <span>{project.category.toLowerCase()}</span>
-        <span aria-hidden="true">·</span>
-        <span>{project.year}</span>
-      </div>
-      <h1 className="page-title">{project.name}</h1>
-      <p className="post-lead">{project.tagline}</p>
+      <h1 className="page-title" style={{ marginBottom: 24 }}>{project.name}</h1>
 
-      <p className="pub-links" style={{ marginBottom: 36, fontSize: 13 }}>
-        <a className="link-accent" href={project.github}>
-          Source on GitHub ↗
+      {stats.length > 0 && (
+        <dl className="repo-stats">
+          {stats.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <p className="repo-links">
+        <a className="mono" href={project.github}>
+          {repoSlug(project.github) ?? "GitHub"} ↗
         </a>
-        {project.live && (
-          <a className="link-accent" href={project.live}>
-            Live site ↗
-          </a>
-        )}
-        {project.blogLink && (
-          <Link className="link-accent" href={project.blogLink}>
-            Read the write-up →
-          </Link>
-        )}
+        {project.live && <a href={project.live}>{project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗</a>}
+        {project.blogLink && <Link href={project.blogLink}>read the write-up →</Link>}
       </p>
-      <hr className="divider" />
 
       {project.image && (
-        <div className="figure-frame">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static screenshot from /public */}
-          <img src={project.image} alt={`${project.name} screenshot`} />
+        <div className="figure-frame" style={{ margin: "36px 0" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static image from /public */}
+          <img src={project.image} alt={`${project.name} home page`} />
         </div>
       )}
 
-      <div className="prose">
+      <div className="prose" style={{ marginTop: project.image ? 0 : 36 }}>
+        <p>{project.tagline}</p>
         {project.overview?.map((paragraph) => (
           <p key={paragraph.slice(0, 32)}>{paragraph}</p>
         ))}
         {project.features && project.features.length > 0 && (
           <>
-            <h2 style={{ marginTop: 40 }}>Features</h2>
+            <h2 style={{ marginTop: 36 }}>Features</h2>
             <ul>
               {project.features.map((feature) => (
                 <li key={feature}>{feature}</li>
@@ -130,8 +140,15 @@ export default async function ProjectPage({
         )}
       </div>
 
+      {project.gallery?.map((shot) => (
+        <figure key={shot.src} className="figure-frame" style={{ margin: "8px 0 36px" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static image from /public */}
+          <img src={shot.src} alt={shot.alt} loading="lazy" />
+        </figure>
+      ))}
+
       {project.metrics && project.metrics.length > 0 && (
-        <section className="section" aria-labelledby="highlights-h">
+        <section className="section" style={{ marginTop: 12 }} aria-labelledby="highlights-h">
           <h2 id="highlights-h" className="section-label">
             Highlights
           </h2>
@@ -147,7 +164,8 @@ export default async function ProjectPage({
 
       <section aria-labelledby="stack-h">
         <h2 id="stack-h" className="section-label">
-          Stack
+          Stack · {project.category.toLowerCase()} · {project.year}
+          {repo?.license ? ` · ${repo.license} license` : ""}
         </h2>
         <ul className="chips">
           {project.stack.map((item) => (

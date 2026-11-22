@@ -15,7 +15,7 @@ export const SITE_NAME = "Ajay Mandal";
 export const SITE_TITLE = "Ajay Mandal — Software Engineer & Architect";
 
 export const SITE_DESCRIPTION =
-  "Ajay Mandal is a software engineer and architect who builds backends for AI products and writes practical guides on Claude Code, AI agents and backend systems.";
+  "Ajay Mandal is a software engineer and architect who builds backends for AI products. Technical write-ups on backend systems, AI agents, cloud and developer tools.";
 
 export const SITE_KEYWORDS = [
   "Ajay Mandal",
