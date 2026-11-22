@@ -5,6 +5,7 @@ import { formatBlogDate, readingMinutes, wordCount } from "@/lib/blog-shared";
 import type { Metadata } from "next";
 import type { BlogPost } from "@/lib/blog";
 import CopyCodeButtons from "@/components/site/CopyCodeButtons";
+import SharePost from "@/components/site/SharePost";
 import JsonLd from "@/components/global/JsonLd";
 import { AUTHOR, PERSON_ID, SITE_NAME, SITE_URL, absoluteUrl, ogImageUrl } from "@/lib/site";
 
@@ -166,6 +167,7 @@ export default async function PostPage({
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
       <CopyCodeButtons selector="#post-body" />
+      <SharePost url={absoluteUrl(`/blog/${post.slug}`)} title={post.title} />
 
       {(newer || older) && (
         <nav className="post-nav" aria-label="More posts">

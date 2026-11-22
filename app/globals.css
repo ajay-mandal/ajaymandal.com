@@ -611,6 +611,45 @@ p {
   border: 0;
   background: var(--rule);
 }
+.share {
+  margin-top: 48px;
+}
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.share-links a,
+.share-links button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--chip);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: 500 13px var(--sans);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.share-links svg {
+  width: 13px;
+  height: 13px;
+  color: var(--meta);
+  transition: color 0.15s ease;
+}
+.share-links a:hover,
+.share-links button:hover,
+.share-links a:hover svg,
+.share-links button:hover svg {
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
 .post-nav {
   display: flex;
   flex-wrap: wrap;
