@@ -5,6 +5,11 @@ export type PublicationProps = {
     tagline: string;
     date: string;
     image: string;
+    /** Structured fields for the life-so-far page. */
+    authors?: string[];
+    venue?: string;
+    doi?: string;
+    summary?: string;
   };
   
   
@@ -15,7 +20,11 @@ export type PublicationProps = {
     link: 'https://ieeexplore.ieee.org/document/10730973',
     tagline: "IEEE XPLORE",
     date: "AUG 2024",
-    image: '/edu/ieee-certificate.png'
+    image: '/edu/ieee-certificate.png',
+    authors: ['Ajay Kumar Mandal', 'P. Yadav', 'A. Maharjan', 'C. Rai', 'B. D.R'],
+    venue: '2nd International Conference on Networking, Embedded and Wireless Systems (ICNEWS), Bangalore',
+    doi: '10.1109/ICNEWS60873.2024.10730973',
+    summary: 'A cloud-native AWS serverless design to replace RFID-based luggage tracking.',
     },
 ]
   

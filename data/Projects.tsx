@@ -32,7 +32,7 @@ export const PROJECT: ProjectProps[] = [
         github: 'https://github.com/ajay-mandal/DryMDF',
         category: 'FULL-STACK',
         year: '2026',
-        stack: ['NEXT.JS', 'NESTJS', 'REDIS', 'TAILWIND', 'CODEMIRROR', 'BULL', 'SOCKET.IO', 'PUPPETEER'],
+        stack: ['Next.js', 'NestJS', 'Redis', 'Tailwind', 'CodeMirror', 'Bull', 'Socket.IO', 'Puppeteer'],
         metrics: [
             { value: 'Markdown', label: 'EDITOR' },
             { value: 'PDF/HTML', label: 'EXPORT' },
@@ -48,7 +48,7 @@ export const PROJECT: ProjectProps[] = [
         github: 'https://github.com/ajay-mandal/youtube-clone',
         category: 'BACKEND',
         year: '2024',
-        stack: ['NEXT.JS', 'FIREBASE', 'GOOGLE CLOUD', 'FFMPEG'],
+        stack: ['Next.js', 'Firebase', 'Google Cloud', 'FFmpeg'],
     },
     {
         slug: 'noteme-app',
@@ -58,7 +58,7 @@ export const PROJECT: ProjectProps[] = [
         github: 'https://github.com/ajay-mandal/NoteMe-App',
         category: 'EDGE PLATFORM',
         year: '2024',
-        stack: ['NEXT.JS', 'HONO.JS', 'CF WORKERS', 'EDGE RUNTIME'],
+        stack: ['Next.js', 'Hono', 'Cloudflare Workers', 'Edge Runtime'],
     },
     {
         slug: 'ecommerce-admin-dashboard',
@@ -67,7 +67,7 @@ export const PROJECT: ProjectProps[] = [
         github: 'https://github.com/ajay-mandal/cms_ecommerce_store',
         category: 'E-COMMERCE',
         year: '2025',
-        stack: ['NEXT.JS', 'PRISMA ORM', 'POSTGRES', 'STRIPE', 'ZUSTAND', 'TAILWINDCSS'],
+        stack: ['Next.js', 'Prisma', 'Postgres', 'Stripe', 'Zustand', 'Tailwind CSS'],
     }
 ]
 

@@ -10,6 +10,8 @@ const nextConfig = {
         destination: "https://www.ajaymandal.com/:path*",
         permanent: true,
       },
+      // The writing list is the homepage now; post URLs stay under /blog/.
+      { source: "/blog", destination: "/", permanent: true },
     ];
   },
   images: {

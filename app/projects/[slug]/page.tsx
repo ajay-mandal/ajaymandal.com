@@ -66,9 +66,6 @@ function projectJsonLd(project: ProjectProps) {
   ];
 }
 
-const LINK_CLASS =
-  "inline-flex items-center px-5 py-3 border-[3px] border-[#0D0F14] font-[family-name:var(--space-mono)] text-[11px] tracking-[0.18em] uppercase transition-all shadow-[4px_4px_0_#0D0F14] hover:shadow-[4px_4px_0_#E8192C]";
-
 export default async function ProjectPage({
   params,
 }: {
@@ -78,141 +75,86 @@ export default async function ProjectPage({
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
-  const others = PROJECT.filter((p) => p.slug !== project.slug).slice(0, 3);
-
   return (
-    <article className="min-h-screen bg-[#F0F2F5]">
+    <article>
       <JsonLd data={projectJsonLd(project)} />
+      <Link href="/projects" className="back-link">
+        ← all projects
+      </Link>
 
-      <header className="bg-white pb-12 sm:pb-16 lg:pt-32 lg:pb-20 border-b-[3px] sm:border-b-[4px] lg:border-b-[6px] border-[#0D0F14]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 lg:pt-0">
-          <nav aria-label="Breadcrumb" className="mb-8 font-[family-name:var(--space-mono)] text-[10px] sm:text-xs tracking-[0.15em] uppercase text-[#8892AA]">
-            <Link href="/" className="hover:text-[#E8192C]">Home</Link>
-            <span className="mx-2 text-[#E8192C]">/</span>
-            <Link href="/projects" className="hover:text-[#E8192C]">Projects</Link>
-            <span className="mx-2 text-[#E8192C]">/</span>
-            <span className="text-[#4A5068]">{project.name}</span>
-          </nav>
+      <div className="post-head-meta">
+        <span>{project.category.toLowerCase()}</span>
+        <span aria-hidden="true">·</span>
+        <span>{project.year}</span>
+      </div>
+      <h1 className="page-title">{project.name}</h1>
+      <p className="post-lead">{project.tagline}</p>
 
-          <span className="font-[family-name:var(--space-mono)] text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-[#E8192C] font-bold">
-            {project.category} · {project.year}
-          </span>
-          <h1 className="mt-3 mb-6 font-[family-name:var(--oxanium)] font-black text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-[#0D0F14] break-words">
-            {project.name}
-          </h1>
-          <p className="font-[family-name:var(--space-mono)] text-sm sm:text-base leading-relaxed text-[#4A5068] max-w-3xl mb-8">
-            {project.tagline}
-          </p>
+      <p className="pub-links" style={{ marginBottom: 40, fontSize: 14 }}>
+        <a className="link-accent" href={project.github}>
+          Source on GitHub ↗
+        </a>
+        {project.live && (
+          <a className="link-accent" href={project.live}>
+            Live site ↗
+          </a>
+        )}
+        {project.blogLink && (
+          <Link className="link-accent" href={project.blogLink}>
+            Read the write-up →
+          </Link>
+        )}
+      </p>
+      <hr className="divider" />
 
-          <div className="flex flex-wrap gap-4">
-            <a href={project.github} target="_blank" rel="noopener" className={`${LINK_CLASS} bg-[#0D0F14] text-white`}>
-              Source on GitHub →
-            </a>
-            {project.live && (
-              <a href={project.live} target="_blank" rel="noopener" className={`${LINK_CLASS} bg-[#E8192C] border-[#E8192C] text-white`}>
-                Live App →
-              </a>
-            )}
-            {project.blogLink && (
-              <Link href={project.blogLink} className={`${LINK_CLASS} bg-white text-[#0D0F14]`}>
-                Read the Case Study →
-              </Link>
-            )}
-          </div>
+      {project.image && (
+        <div className="figure-frame">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static screenshot from /public */}
+          <img src={project.image} alt={`${project.name} screenshot`} />
         </div>
-      </header>
+      )}
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-10">
-        {project.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.image}
-            alt={`${project.name} screenshot`}
-            className="w-full border-[3px] border-[#0D0F14] shadow-[6px_6px_0_#E8192C]"
-          />
-        )}
-
-        {project.overview && project.overview.length > 0 && (
-          <section className="bg-white border-[3px] border-[#0D0F14] p-6 sm:p-8">
-            <h2 className="font-[family-name:var(--oxanium)] font-black text-2xl sm:text-3xl mb-5 pb-3 border-b-[3px] border-[#E8192C]">
-              Overview
-            </h2>
-            <div className="space-y-4 font-[family-name:var(--space-mono)] text-sm sm:text-[15px] leading-[1.75] text-[#1A1D24]">
-              {project.overview.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
-          </section>
-        )}
-
+      <div className="prose">
+        {project.overview?.map((paragraph) => (
+          <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+        ))}
         {project.features && project.features.length > 0 && (
-          <section className="bg-white border-[3px] border-[#0D0F14] p-6 sm:p-8">
-            <h2 className="font-[family-name:var(--oxanium)] font-black text-2xl sm:text-3xl mb-5 pb-3 border-b-[3px] border-[#E8192C]">
-              Key Features
-            </h2>
-            <ul className="space-y-3 font-[family-name:var(--space-mono)] text-sm sm:text-[15px] leading-relaxed text-[#1A1D24]">
+          <>
+            <h2 style={{ marginTop: 40 }}>Features</h2>
+            <ul>
               {project.features.map((feature) => (
-                <li key={feature} className="flex gap-3">
-                  <span className="mt-2 h-2 w-2 shrink-0 bg-[#E8192C]" />
-                  <span>{feature}</span>
-                </li>
+                <li key={feature}>{feature}</li>
               ))}
             </ul>
-          </section>
+          </>
         )}
+      </div>
 
-        <section className="bg-white border-[3px] border-[#0D0F14] p-6 sm:p-8">
-          <h2 className="font-[family-name:var(--oxanium)] font-black text-2xl sm:text-3xl mb-5 pb-3 border-b-[3px] border-[#E8192C]">
-            Tech Stack
+      {project.metrics && project.metrics.length > 0 && (
+        <section className="section" aria-labelledby="highlights-h">
+          <h2 id="highlights-h" className="section-label">
+            Highlights
           </h2>
-          <ul className="flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <li
-                key={tech}
-                className="font-[family-name:var(--space-mono)] text-[11px] tracking-[0.1em] uppercase border-2 border-[#0D0F14] text-[#1A1D24] px-3 py-1.5"
-              >
-                {tech}
+          <ul className="chips muted">
+            {project.metrics.map((m) => (
+              <li key={m.label}>
+                {m.value} <span className="meta">{m.label.toLowerCase()}</span>
               </li>
             ))}
           </ul>
-
-          {project.metrics && (
-            <dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-[3px] bg-[#0D0F14] border-[3px] border-[#0D0F14]">
-              {project.metrics.map((m) => (
-                <div key={m.label} className="bg-white p-4">
-                  <dt className="font-[family-name:var(--space-mono)] text-[10px] tracking-[0.1em] uppercase text-[#8892AA]">{m.label}</dt>
-                  <dd className="font-[family-name:var(--oxanium)] font-black text-xl text-[#E8192C]">{m.value}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
         </section>
+      )}
 
-        {others.length > 0 && (
-          <section>
-            <h2 className="font-[family-name:var(--oxanium)] font-black text-2xl sm:text-3xl mb-5">
-              More <span className="text-[#E8192C]">Projects</span>
-            </h2>
-            <ul className="grid gap-4 sm:grid-cols-3">
-              {others.map((p) => (
-                <li key={p.slug}>
-                  <Link
-                    href={`/projects/${p.slug}`}
-                    className="group block h-full bg-white border-[3px] border-[#0D0F14] p-5 hover:shadow-[4px_4px_0_#E8192C] transition-all"
-                  >
-                    <span className="font-[family-name:var(--space-mono)] text-[9px] tracking-[0.2em] uppercase text-[#E8192C]">
-                      {p.category}
-                    </span>
-                    <h3 className="mt-2 font-[family-name:var(--oxanium)] font-bold text-lg leading-tight group-hover:text-[#E8192C] transition-colors">
-                      {p.name}
-                    </h3>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
+      <section aria-labelledby="stack-h">
+        <h2 id="stack-h" className="section-label">
+          Stack
+        </h2>
+        <ul className="chips">
+          {project.stack.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
     </article>
   );
 }

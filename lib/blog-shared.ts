@@ -20,11 +20,32 @@ export type BlogPost = {
   updated_at: string;
 };
 
-/** Format date for display */
+/** "17 Nov 2026". UTC so the build machine's timezone can't shift the day. */
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 export function formatBlogDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const d = new Date(iso);
+  return `${String(d.getUTCDate()).padStart(2, "0")} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+/**
+ * Words in the rendered HTML. Inline <span>s (Shiki wraps every code token in
+ * one) are removed without a space so highlighting doesn't change the count.
+ */
+export function wordCount(html: string): number {
+  return html
+    .replace(/<\/?span[^>]*>/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+/** Reading time at ~230 words per minute, at least 1. */
+export function readingMinutes(html: string): number {
+  return Math.max(1, Math.round(wordCount(html) / 230));
+}
+
+/** List thumbnail: the frontmatter ogImage, else the first image in the post. */
+export function postThumbnail(post: Pick<BlogPost, "cover_image" | "content">): string | undefined {
+  return post.cover_image ?? post.content.match(/<img[^>]+src="([^"]+)"/)?.[1];
 }

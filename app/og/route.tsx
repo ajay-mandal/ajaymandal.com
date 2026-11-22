@@ -17,65 +17,44 @@ export async function GET(request: Request) {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#F0F2F5",
-          padding: 40,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          background: "#FAF9F6",
+          padding: "72px 88px",
+          color: "#1C1B19",
         }}
       >
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <div style={{ display: "flex", fontSize: 64, fontWeight: 700, fontStyle: "italic", lineHeight: 1 }}>
+            a<span style={{ color: "#B5473A", fontStyle: "normal" }}>.</span>
+          </div>
+          <div style={{ display: "flex", fontSize: 30, letterSpacing: -0.5 }}>
+            ajay<span style={{ color: "#B5473A" }}>/</span>mandal
+          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          <div style={{ display: "flex", fontSize: titleSize, fontWeight: 700, lineHeight: 1.1, letterSpacing: -1.5 }}>
+            {title}
+          </div>
+          {subtitle && (
+            <div style={{ display: "flex", fontSize: 30, color: "#57544E" }}>{subtitle}</div>
+          )}
+        </div>
+
         <div
           style={{
-            flex: 1,
             display: "flex",
-            flexDirection: "column",
             justifyContent: "space-between",
-            background: "#FFFFFF",
-            border: "6px solid #0D0F14",
-            boxShadow: "16px 16px 0 #E8192C",
-            padding: "56px 64px",
+            alignItems: "center",
+            paddingTop: 28,
+            borderTop: "2px solid #E6E2DA",
+            fontSize: 24,
+            color: "#6B6862",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div
-              style={{
-                display: "flex",
-                color: "#E8192C",
-                border: "4px solid #E8192C",
-                padding: "4px 14px",
-                fontSize: 34,
-                fontWeight: 800,
-                letterSpacing: 2,
-              }}
-            >
-              AM
-            </div>
-            <div style={{ display: "flex", width: 64, height: 4, background: "#E8192C" }} />
-            <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, color: "#4A5068", textTransform: "uppercase" }}>
-              ajaymandal.com
-            </div>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <div
-              style={{
-                display: "flex",
-                fontSize: titleSize,
-                fontWeight: 800,
-                lineHeight: 1.08,
-                color: "#0D0F14",
-              }}
-            >
-              {title}
-            </div>
-            {subtitle && (
-              <div style={{ display: "flex", fontSize: 30, color: "#4A5068" }}>{subtitle}</div>
-            )}
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ display: "flex", fontSize: 24, color: "#8892AA", letterSpacing: 4, textTransform: "uppercase" }}>
-              Ajay Mandal · Engineer
-            </div>
-            <div style={{ display: "flex", width: 120, height: 14, background: "#E8192C" }} />
-          </div>
+          <div style={{ display: "flex" }}>ajaymandal.com</div>
+          <div style={{ display: "flex", width: 56, height: 6, borderRadius: 3, background: "#B5473A" }} />
         </div>
       </div>
     ),

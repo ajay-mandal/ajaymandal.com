@@ -37,6 +37,7 @@ export const AUTHOR = {
   name: "Ajay Mandal",
   jobTitle: "Backend Engineer",
   twitter: "@ajaymandal01",
+  email: "ajaymandal.work07@gmail.com",
   /** Profiles Google uses to connect this site to the same person (Person.sameAs). */
   sameAs: [
     "https://github.com/ajay-mandal",
