@@ -55,6 +55,7 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       "application/rss+xml": [{ url: "/blog/rss.xml", title: `${SITE_NAME} — Blog` }],
+      "text/markdown": [{ url: "/llms.txt", title: "llms.txt" }],
     },
   },
   openGraph: {

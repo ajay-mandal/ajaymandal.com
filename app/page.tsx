@@ -11,6 +11,7 @@ import {
   WEBSITE_ID,
   absoluteUrl,
   pageMetadata,
+  personJsonLd,
 } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -37,17 +38,7 @@ const homeJsonLd = [
     url: SITE_URL,
     name: SITE_NAME,
     isPartOf: { "@id": WEBSITE_ID },
-    mainEntity: {
-      "@type": "Person",
-      "@id": PERSON_ID,
-      name: AUTHOR.name,
-      url: SITE_URL,
-      image: absoluteUrl("/pp3.png"),
-      jobTitle: AUTHOR.jobTitle,
-      alumniOf: { "@type": "CollegeOrUniversity", name: AUTHOR.alumniOf },
-      knowsAbout: AUTHOR.knowsAbout,
-      sameAs: AUTHOR.sameAs,
-    },
+    mainEntity: personJsonLd(),
   },
 ];
 

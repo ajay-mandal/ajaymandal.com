@@ -2,19 +2,33 @@ import Link from "next/link";
 import { NOW, SKILLS, STACK } from "@/data/about";
 import { socialLinks } from "@/data/social";
 import { formatBlogDate } from "@/lib/blog-shared";
-import { AUTHOR, pageMetadata } from "@/lib/site";
+import JsonLd from "@/components/global/JsonLd";
+import { AUTHOR, WEBSITE_ID, absoluteUrl, pageMetadata, personJsonLd } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "About Ajay Mandal: a backend engineer building the agents, retrieval pipelines and job queues behind AI products. Stack, skills and what he's working on now.",
+    "About Ajay Mandal: a backend engineer building the agents, retrieval pipelines and job queues behind AI products. Stack, skills and current work.",
   path: "/about",
   ogSubtitle: AUTHOR.jobTitle,
 });
 
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": absoluteUrl("/about#page"),
+  url: absoluteUrl("/about"),
+  name: `About ${AUTHOR.name}`,
+  isPartOf: { "@id": WEBSITE_ID },
+  mainEntity: personJsonLd({
+    knowsAbout: [...new Set([...AUTHOR.knowsAbout, ...SKILLS])],
+  }),
+};
+
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={aboutJsonLd} />
       <h1 className="page-title" style={{ marginBottom: 32 }}>
         About me
       </h1>

@@ -15,13 +15,17 @@ export const SITE_NAME = "Ajay Mandal";
 export const SITE_TITLE = "Ajay Mandal — Software Engineer & Architect";
 
 export const SITE_DESCRIPTION =
-  "Ajay Mandal is a backend and full-stack engineer building AI platforms, distributed systems and open-source tools with TypeScript, NestJS, Next.js, Postgres and Google Cloud. Read project deep-dives and engineering write-ups.";
+  "Ajay Mandal is a software engineer and architect who builds backends for AI products and writes practical guides on Claude Code, AI agents and backend systems.";
 
 export const SITE_KEYWORDS = [
   "Ajay Mandal",
+  "software engineer",
+  "software architect",
   "backend engineer",
-  "full-stack engineer",
-  "software engineer portfolio",
+  "AI agents",
+  "multi-agent systems",
+  "RAG pipelines",
+  "Claude Code",
   "TypeScript",
   "NestJS",
   "Next.js",
@@ -57,12 +61,20 @@ export const AUTHOR = {
     "Distributed systems",
     "RAG pipelines",
     "Multi-agent systems",
+    "Claude Code",
+    "Backend architecture",
+    "Event-driven architecture",
   ],
 };
 
 export function absoluteUrl(path = "/"): string {
   if (/^https?:\/\//.test(path)) return path;
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/** Rewrite root-relative src/href attributes in HTML to absolute URLs. */
+export function absolutizeHtml(html: string): string {
+  return html.replace(/\b(src|href)="\//g, `$1="${SITE_URL}/`);
 }
 
 /** Generated 1200×630 share image (see app/og/route.tsx). */
@@ -101,6 +113,7 @@ export function pageMetadata({
       canonical: url,
       types: {
         "application/rss+xml": [{ url: "/blog/rss.xml", title: `${SITE_NAME} — Blog` }],
+        "text/markdown": [{ url: "/llms.txt", title: "llms.txt" }],
       },
     },
     openGraph: {
@@ -125,3 +138,47 @@ export function pageMetadata({
 
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
+
+/**
+ * AI crawlers and answer-engine agents named in robots.txt so they are
+ * explicitly allowed (some tools only trust an explicit group). Includes
+ * robots-only tokens such as Google-Extended that never appear as a UA.
+ */
+export const AI_CRAWLERS = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Google-Extended",
+  "Applebot-Extended",
+  "meta-externalagent",
+  "Amazonbot",
+  "DuckAssistBot",
+  "MistralAI-User",
+  "CCBot",
+];
+
+/**
+ * The one Person entity every page's JSON-LD refers to (by @id). The current
+ * employer is deliberately left out: it is named only on /life.
+ */
+export function personJsonLd(extra: Record<string, unknown> = {}) {
+  return {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: AUTHOR.name,
+    url: SITE_URL,
+    image: absoluteUrl("/pp3.png"),
+    jobTitle: AUTHOR.jobTitle,
+    description: SITE_DESCRIPTION,
+    email: `mailto:${AUTHOR.email}`,
+    alumniOf: { "@type": "CollegeOrUniversity", name: AUTHOR.alumniOf },
+    knowsAbout: AUTHOR.knowsAbout,
+    sameAs: AUTHOR.sameAs,
+    ...extra,
+  };
+}

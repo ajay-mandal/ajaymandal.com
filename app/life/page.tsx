@@ -1,7 +1,8 @@
 import { JOBS, type JobProps } from "@/data/job";
 import { EDUCATIONS } from "@/data/education";
 import { PUBLICATIONS } from "@/data/publications";
-import { AUTHOR, pageMetadata } from "@/lib/site";
+import JsonLd from "@/components/global/JsonLd";
+import { AUTHOR, PERSON_ID, WEBSITE_ID, absoluteUrl, pageMetadata, personJsonLd } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Life so far",
@@ -30,9 +31,38 @@ function jobRange(job: JobProps): string {
 
 const year = (s: string) => s.match(/\d{4}/)?.[0] ?? s;
 
+const lifeJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": absoluteUrl("/life#page"),
+    url: absoluteUrl("/life"),
+    name: `${AUTHOR.name}: life so far`,
+    isPartOf: { "@id": WEBSITE_ID },
+    // Schools only; the employer is not named in structured data.
+    mainEntity: personJsonLd({
+      alumniOf: EDUCATIONS.map((edu) => ({ "@type": "EducationalOrganization", name: edu.name, url: edu.url })),
+    }),
+  },
+  ...PUBLICATIONS.map((pub) => ({
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    headline: pub.name,
+    url: pub.link,
+    ...(pub.doi ? { sameAs: `https://doi.org/${pub.doi}` } : {}),
+    description: [pub.summary, pub.venue && `Presented at ${pub.venue}.`].filter(Boolean).join(" ") || pub.description,
+    author: (pub.authors ?? [AUTHOR.name]).map((name) =>
+      name.startsWith(AUTHOR.name.split(" ")[0])
+        ? { "@type": "Person", "@id": PERSON_ID, name }
+        : { "@type": "Person", name },
+    ),
+  })),
+];
+
 export default function LifePage() {
   return (
     <>
+      <JsonLd data={lifeJsonLd} />
       <h1 className="page-title">Life so far</h1>
       <p className="page-lede">From a school in Janakpur to backend systems for AI products. Newest first.</p>
 

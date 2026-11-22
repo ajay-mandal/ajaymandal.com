@@ -83,7 +83,7 @@ providers: [
 ```
 
 Here is list of Oauth providers supported by auth.js  
-![inhouse-authentication-using-authjs](/images/blog/inhouse-authentication-using-authjs/Oauth-list.png)
+![List of the built-in OAuth providers supported by Auth.js](/images/blog/inhouse-authentication-using-authjs/Oauth-list.png)
 
 ### Middleware
 
@@ -265,7 +265,7 @@ export const admin = async () => {
 ## Setting Page
 
 Setting Page allows the `Credentials` users to do everything with their account. Uploading profile image is left, but that just a piece of cake to implement. User can turn on twoFactor, change role, name, password and email as well.  
-![settings-page](/images/blog/inhouse-authentication-using-authjs/settings-page.png)
+![Account settings page where credentials users manage their account](/images/blog/inhouse-authentication-using-authjs/settings-page.png)
 
 ## Mail Template
 

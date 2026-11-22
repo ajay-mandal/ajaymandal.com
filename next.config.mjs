@@ -14,6 +14,10 @@ const nextConfig = {
       { source: "/blog", destination: "/", permanent: true },
     ];
   },
+  // Markdown copy of each post for agents (see lib/llms.ts).
+  async rewrites() {
+    return [{ source: "/blog/:slug.md", destination: "/md/blog/:slug" }];
+  },
   images: {
     remotePatterns: [
       {

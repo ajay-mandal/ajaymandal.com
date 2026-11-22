@@ -33,7 +33,14 @@ export async function generateMetadata({
     description: post.excerpt,
     keywords: post.tags,
     authors: [{ name: AUTHOR.name, url: absoluteUrl("/about") }],
-    alternates: { canonical: postUrl },
+    alternates: {
+      canonical: postUrl,
+      // Markdown copy for agents and LLM tools (lib/llms.ts).
+      types: {
+        "text/markdown": absoluteUrl(`/blog/${slug}.md`),
+        "application/rss+xml": [{ url: "/blog/rss.xml", title: `${SITE_NAME} — Blog` }],
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,

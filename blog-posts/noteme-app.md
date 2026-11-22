@@ -182,7 +182,7 @@ npm run deploy-backend
 ```
 
 It deploys the backend on the cf workers  
-![backend-cf](/images/blog/noteme-app/backend-cf.png)
+![Cloudflare Workers & Pages overview showing the deployed backend worker](/images/blog/noteme-app/backend-cf.png)
 
 Using this method to separate your API from your Next.js application can be really beneficial. The main perk is that you'll get faster API response times. Plus, you'll have the flexibility to deploy your API on a platform that works best for it, without being tied to Vercel for your whole project.
 

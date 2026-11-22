@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PROJECT } from "@/data/Projects";
+import { PROJECT, projectSummary } from "@/data/Projects";
 import JsonLd from "@/components/global/JsonLd";
 import { PERSON_ID, SITE_URL, WEBSITE_ID, absoluteUrl, pageMetadata } from "@/lib/site";
 
@@ -43,11 +43,6 @@ const projectsJsonLd = [
   },
 ];
 
-/** First sentence of a tagline, for the one-line summary in the list. */
-function firstSentence(text: string): string {
-  return text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? text;
-}
-
 export default function ProjectsPage() {
   const projects = [...PROJECT].sort((a, b) => Number(b.year) - Number(a.year));
   return (
@@ -71,7 +66,7 @@ export default function ProjectsPage() {
                 {project.year}
               </span>
             </div>
-            <p className="post-excerpt">{firstSentence(project.tagline)}</p>
+            <p className="post-excerpt">{projectSummary(project)}</p>
             <div className="project-foot">
               <span className="mono meta">{project.stack.slice(0, 5).join(" · ")}</span>
               <span className="links">

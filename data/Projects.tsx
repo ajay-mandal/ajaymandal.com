@@ -71,6 +71,11 @@ export const PROJECT: ProjectProps[] = [
     }
 ]
 
+/** One-line summary: the first sentence of the tagline. */
+export function projectSummary(project: Pick<ProjectProps, "tagline">): string {
+  return project.tagline.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? project.tagline;
+}
+
 export function getProjectBySlug(slug: string): ProjectProps | undefined {
   return PROJECT.find((p) => p.slug === slug);
 }

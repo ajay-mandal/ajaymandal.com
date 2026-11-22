@@ -20,7 +20,7 @@ solution that simplifies the way we handle global state.
 
 ## What is Zustand?
 
-![zustand-reactjs](/images/blog/zustand-react/zustand-def.png)  
+![Zustand's own description: a small, fast and scalable state-management library with a hooks-based API](/images/blog/zustand-react/zustand-def.png)  
 As said, Zustand is a small, fast and scalable status management solution. Its state management is centralized and action-based.  
 Its core philosophy is to make state management straightforward and developer-friendly.
 

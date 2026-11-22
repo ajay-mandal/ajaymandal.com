@@ -2,7 +2,7 @@
 
 /**
  * A blog post rendered from blog-posts/<file>.md at build time.
- * `content` is the final HTML (Markdown → marked → Shiki).
+ * `content` is the final HTML (Markdown → marked → Shiki); `markdown` is the source.
  */
 export type BlogPost = {
   id: string;
@@ -10,6 +10,8 @@ export type BlogPost = {
   slug: string;
   excerpt: string;
   content: string;
+  /** The post body as written (Markdown, without frontmatter). */
+  markdown: string;
   cover_image?: string;
   /** "project" | "findings" */
   category: "project" | "findings";

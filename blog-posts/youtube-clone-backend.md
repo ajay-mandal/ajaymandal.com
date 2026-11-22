@@ -38,7 +38,7 @@ Youtube in itself is a complex app. I have tried to understand and build the vid
 
 ## System Design
 
-![system-design](/images/blog/youtube-clone/yt-clone-system-design.svg)
+![YouTube clone system design: uploads go to Cloud Storage, Pub/Sub triggers Cloud Run processing, and Firebase Functions and Firestore serve the Next.js frontend](/images/blog/youtube-clone/yt-clone-system-design.svg)
 
 ## Video Processing Service
 
@@ -68,7 +68,7 @@ brew install ffmpeg
 
 Sign in to [`console.firebase.google.com`](http://console.firebase.google.com/) and create a new project, analytics diabled, can be enabled for better experience
 
-![firebase-dashboard](/images/blog/youtube-clone/firebase-dashboard.jpeg)
+![Firebase console overview of the new yt-devclone project](/images/blog/youtube-clone/firebase-dashboard.jpeg)
 
 > Project ID: **yt-devclone-d5b1f**
 
@@ -102,7 +102,7 @@ gcloud components update
 
 ### Create repository on Artifact
 
-![artifact-repo](/images/blog/youtube-clone/artifact-repo.jpeg)
+![Creating a Docker repository in Google Artifact Registry](/images/blog/youtube-clone/artifact-repo.jpeg)
 
 Repository created
 
@@ -113,11 +113,11 @@ Repository created
 
 -   Config for Raw Bucket `ytclone01-raw-videos-bucket`
 
-![raw-bucket-config](/images/blog/youtube-clone/raw-bucket-config.jpeg)
+![Cloud Storage settings for the raw videos bucket](/images/blog/youtube-clone/raw-bucket-config.jpeg)
 
 -   Config for Processed Bucket `ytclone01-processed-videos-bucket`
 
-![processed-video-config](/images/blog/youtube-clone/processed-video-config.jpeg)
+![Cloud Storage settings for the processed videos bucket](/images/blog/youtube-clone/processed-video-config.jpeg)
 
 ### Video-processing-service Code
 
@@ -182,7 +182,7 @@ docker push asia-south1-docker.pkg.dev/yt-devclone-d5b1f/video-processing-reposi
 
 Image pushed successfully
 
-![final-image-pushed](/images/blog/youtube-clone/final-image-pushed.jpeg)
+![Artifact Registry listing the pushed video-processing Docker image](/images/blog/youtube-clone/final-image-pushed.jpeg)
 
 ## Cloud Run and Pub/Sub Config
 
@@ -190,7 +190,7 @@ Image pushed successfully
 
 1.  Select the image from Artifact
 
-![cloudrun-image-add](/images/blog/youtube-clone/cloudrun-image-add.jpeg)
+![Creating a Cloud Run service from the image in Artifact Registry](/images/blog/youtube-clone/cloudrun-image-add.jpeg)
 
 2.  Set Authentication to "Allow unauthenticated invocation"
 3.  Set CPU allocation and pricing to "CPU is only allocated during request processing"
@@ -199,17 +199,17 @@ Image pushed successfully
 
 Copy the URL of the Cloud Run
 
-![url-cloudrun](/images/blog/youtube-clone/url-cloudrun.jpeg)
+![Cloud Run service details with its URL highlighted](/images/blog/youtube-clone/url-cloudrun.jpeg)
 
 ### Create a Pub/Sub
 
 -   Create a TopicCreate Subscription
 
-![topic-creating](/images/blog/youtube-clone/topic-creating.jpeg)
+![Creating a Pub/Sub topic for new video uploads](/images/blog/youtube-clone/topic-creating.jpeg)
 
 -   Create Subscription, add the url of cloud run in endpoint url along with `/process-video` endpoint
 
-![add-subscription](/images/blog/youtube-clone/add-subscription.jpeg)
+![Pub/Sub push subscription pointing at the Cloud Run /process-video endpoint](/images/blog/youtube-clone/add-subscription.jpeg)
 
 1.  Create a subscription ID
 2.  Set Delivery Type to "Push"
@@ -238,11 +238,11 @@ gsutil notification create -t video-processing-topic -f json OBJECT_FINALIZE gs:
 -   In firebase, click on webapp and continue to generate the SDK for your frontend app.
 -   Add these to the frontend code base `yt-clone-frontend/firebase`
 
-![sdk-code](/images/blog/youtube-clone/sdk-code.jpeg)
+![Firebase web app setup showing the SDK configuration for the frontend](/images/blog/youtube-clone/sdk-code.jpeg)
 
 ### Add Authentication in Firebase
 
-![auth-firebase](/images/blog/youtube-clone/auth-firebase.jpeg)
+![Enabling the Google sign-in provider in Firebase Authentication](/images/blog/youtube-clone/auth-firebase.jpeg)
 
 ### Create Firestore Database
 
@@ -295,27 +295,27 @@ firebase deploy --only functions:GenerateUploadUrl
 
 After deployment, it should reflect as this on cloud
 
-![generateuplaodurl](/images/blog/youtube-clone/generateuplaodurl.jpeg)
+![Cloud Functions list showing the deployed generateUploadUrl function](/images/blog/youtube-clone/generateuplaodurl.jpeg)
 
 Copy the service url of `GenerateUploadUrl` function to access the raw bucket, copy it from here
 
-![url-generateuploadurl](/images/blog/youtube-clone/url-generateuploadurl.jpeg)
+![generateUploadUrl function details with its service account highlighted](/images/blog/youtube-clone/url-generateuploadurl.jpeg)
 
 Go to raw bucket → Permissions
 
-![raw-bucket-permission](/images/blog/youtube-clone/raw-bucket-permission.jpeg)
+![Permissions tab of the raw videos bucket](/images/blog/youtube-clone/raw-bucket-permission.jpeg)
 
 Add the service url and add role `Storage Object Admin`
 
-![principle-raw-uploadurl](/images/blog/youtube-clone/principle-raw-uploadurl.jpeg)
+![Granting the function's service account the Storage Object Admin role on the raw bucket](/images/blog/youtube-clone/principle-raw-uploadurl.jpeg)
 
 Got IAM & Admin
 
-![IAM](/images/blog/youtube-clone/iam.jpeg)
+![IAM & Admin page listing the project's principals](/images/blog/youtube-clone/iam.jpeg)
 
 Grab the same service url and add one more role, `Service Account Token Creator`
 
-![iam-one-more-rule](/images/blog/youtube-clone/iam-one-more-rule.jpeg)
+![Adding the Service Account Token Creator role to the function's service account](/images/blog/youtube-clone/iam-one-more-rule.jpeg)
 
 ## Add cors policy
 
@@ -342,7 +342,7 @@ gcloud storage buckets update gs://ytclone-raw-videos-bucket --cors-file=utils/g
 
 Enable **`IAM Service Account Credentials API`**
 
-![iam-api](/images/blog/youtube-clone/iam-api.jpeg)
+![Enabling the IAM Service Account Credentials API](/images/blog/youtube-clone/iam-api.jpeg)
 
 Add `.env.local` file with following attributes in frontend app
 
