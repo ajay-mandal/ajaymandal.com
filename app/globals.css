@@ -5,21 +5,21 @@
 /* ajaymandal.com — one narrow column, serif for reading, sans for UI,
    mono for dates and code. Light only. Accent is used sparingly. */
 :root {
-  --bg: #faf9f6;
+  /* Plum: lilac-tinted paper, near-black ink, one plum accent. */
+  --bg: #faf8fa;
   --surface: #ffffff;
-  --ink: #1c1b19;
-  --ink-2: #24231f;
-  --muted: #57544e;
-  --meta: #6b6862;
-  --faint: #9a968e;
-  --rule: #e6e2da;
-  --rule-2: #edeae3;
-  --wash: #f4f2ed;
-  --code-inline: #efece6;
-  --chip: #e2ded6;
-  --accent: #b5473a;
-  --accent-soft: #e3b2ab;
-  --accent-on-dark: #e7826f;
+  --ink: #1e1822;
+  --ink-2: #2a2330;
+  --muted: #5e5563;
+  --meta: #6a6170;
+  --faint: #a39aa8;
+  --rule: #e8e2ea;
+  --rule-2: #efeaf0;
+  --wash: #f2edf3;
+  --code-inline: #ede6ef;
+  --chip: #e3dce5;
+  --accent: #6a3d7c;
+  --accent-soft: #d3bcdd;
 
   --serif: var(--font-serif), Georgia, "Times New Roman", serif;
   --sans: var(--font-sans), system-ui, -apple-system, sans-serif;

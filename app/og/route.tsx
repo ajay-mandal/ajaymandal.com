@@ -19,17 +19,17 @@ export async function GET(request: Request) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#FAF9F6",
+          background: "#FAF8FA",
           padding: "72px 88px",
-          color: "#1C1B19",
+          color: "#1E1822",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <div style={{ display: "flex", fontSize: 64, fontWeight: 700, fontStyle: "italic", lineHeight: 1 }}>
-            a<span style={{ color: "#B5473A", fontStyle: "normal" }}>.</span>
+            a<span style={{ color: "#6A3D7C", fontStyle: "normal" }}>.</span>
           </div>
           <div style={{ display: "flex", fontSize: 30, letterSpacing: -0.5 }}>
-            ajay<span style={{ color: "#B5473A" }}>/</span>mandal
+            ajay<span style={{ color: "#6A3D7C" }}>/</span>mandal
           </div>
         </div>
 
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
             {title}
           </div>
           {subtitle && (
-            <div style={{ display: "flex", fontSize: 30, color: "#57544E" }}>{subtitle}</div>
+            <div style={{ display: "flex", fontSize: 30, color: "#5E5563" }}>{subtitle}</div>
           )}
         </div>
 
@@ -48,13 +48,13 @@ export async function GET(request: Request) {
             justifyContent: "space-between",
             alignItems: "center",
             paddingTop: 28,
-            borderTop: "2px solid #E6E2DA",
+            borderTop: "2px solid #E8E2EA",
             fontSize: 24,
-            color: "#6B6862",
+            color: "#6A6170",
           }}
         >
           <div style={{ display: "flex" }}>ajaymandal.com</div>
-          <div style={{ display: "flex", width: 56, height: 6, borderRadius: 3, background: "#B5473A" }} />
+          <div style={{ display: "flex", width: 56, height: 6, borderRadius: 3, background: "#6A3D7C" }} />
         </div>
       </div>
     ),
