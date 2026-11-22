@@ -1,13 +1,7 @@
-import HeroSection from "@/components/pages/HeroSection";
-import TickerBanner from "@/components/pages/TickerBanner";
-import StatsBar from "@/components/pages/StatsBar";
-import Skills from "@/components/pages/Skills";
-import Project from "@/components/pages/projects";
-import BlogSection from "@/components/pages/BlogSection";
-import InteractiveTerminal from "@/components/pages/InteractiveTerminal";
-import ContactForm from "@/components/pages/contact";
 import JsonLd from "@/components/global/JsonLd";
-import { JOBS } from "@/data/job";
+import WritingList, { type WritingItem } from "@/components/site/WritingList";
+import { getAllPosts } from "@/lib/blog";
+import { formatBlogDate, postThumbnail, readingMinutes } from "@/lib/blog-shared";
 import {
   AUTHOR,
   PERSON_ID,
@@ -22,10 +16,8 @@ import {
 export const metadata = pageMetadata({
   description: SITE_DESCRIPTION,
   path: "/",
-  ogSubtitle: "Backend & Full-Stack Engineer",
+  ogSubtitle: AUTHOR.jobTitle,
 });
-
-const currentJob = JOBS.find((job) => !job.endDate);
 
 const homeJsonLd = [
   {
@@ -51,10 +43,7 @@ const homeJsonLd = [
       name: AUTHOR.name,
       url: SITE_URL,
       image: absoluteUrl("/pp3.png"),
-      jobTitle: currentJob?.jobTitle ?? AUTHOR.jobTitle,
-      ...(currentJob
-        ? { worksFor: { "@type": "Organization", name: currentJob.name, url: currentJob.url } }
-        : {}),
+      jobTitle: AUTHOR.jobTitle,
       alumniOf: { "@type": "CollegeOrUniversity", name: AUTHOR.alumniOf },
       knowsAbout: AUTHOR.knowsAbout,
       sameAs: AUTHOR.sameAs,
@@ -62,26 +51,70 @@ const homeJsonLd = [
   },
 ];
 
-export default function Home() {
+/** Tags used by at least two posts, most used first: the filter row stays short. */
+function filterTags(posts: { tags: string[] }[], max = 6): string[] {
+  const counts = new Map<string, number>();
+  for (const post of posts) for (const tag of post.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  return [...counts]
+    .filter(([, n]) => n >= 2)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, max)
+    .map(([tag]) => tag);
+}
+
+export default async function Home() {
+  const posts = await getAllPosts();
+  const items: WritingItem[] = posts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    date: formatBlogDate(post.published_at),
+    dateIso: post.published_at,
+    minutes: readingMinutes(post.content),
+    tags: post.tags,
+    thumbnail: postThumbnail(post),
+  }));
+
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": absoluteUrl("/blog#blog"),
+    url: SITE_URL,
+    name: `${AUTHOR.name} — Writing`,
+    description: SITE_DESCRIPTION,
+    inLanguage: "en-US",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@type": "Person", "@id": PERSON_ID, name: AUTHOR.name, url: SITE_URL },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      "@id": `${absoluteUrl(`/blog/${post.slug}`)}#article`,
+      headline: post.title,
+      url: absoluteUrl(`/blog/${post.slug}`),
+      datePublished: post.published_at,
+      dateModified: post.updated_at || post.published_at,
+    })),
+  };
+
   return (
     <>
-      <JsonLd data={homeJsonLd} />
-      <HeroSection />
-      <TickerBanner />
-      <StatsBar />
-      <div id="skills">
-        <Skills />
-      </div>
-      <div id="projects">
-        <Project />
-      </div>
-      <div id="blog">
-        <BlogSection />
-      </div>
-      <InteractiveTerminal />
-      <div id="contact">
-        <ContactForm />
-      </div>
+      <JsonLd data={[...homeJsonLd, blogJsonLd]} />
+      <section className="intro">
+        <h1 className="lede-title">
+          I build the backend for AI products, and write down what I learn shipping them.
+        </h1>
+        <p className="lede-body">
+          I work on multi-agent systems and RAG pipelines with TypeScript, NestJS, Postgres and
+          Google Cloud. Lately I mostly write about Claude Code and the agent tooling around it.
+        </p>
+      </section>
+
+      <section aria-labelledby="writing-h">
+        <div className="rule-label">
+          <h2 id="writing-h">Writing</h2>
+          <span className="mono">{posts.length} posts</span>
+        </div>
+        <WritingList posts={items} tags={filterTags(posts)} />
+      </section>
     </>
   );
 }

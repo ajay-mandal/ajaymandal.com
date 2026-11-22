@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Oxanium, Space_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
-import { incognito, gitlabmono } from "@/components/fonts/fonts";
-import Navbar from "@/components/global/Navbar";
-import Footer from "@/components/global/Footer";
-import CursorGlow from "@/components/global/CursorGlow";
-import ScrollToTop from "@/components/global/ScrollToTop";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
 import {
   AUTHOR,
   SITE_DESCRIPTION,
@@ -16,24 +13,26 @@ import {
   ogImageUrl,
 } from "@/lib/site";
 
-const inter = Inter({
+// Serif for reading, sans for interface text, mono for dates and code.
+const serif = Source_Serif_4({
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
-  variable: "--inter",
+  variable: "--font-serif",
 });
 
-const oxanium = Oxanium({
+const sans = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
   display: "swap",
-  variable: "--oxanium",
+  variable: "--font-sans",
 });
 
-const spaceMono = Space_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500"],
   display: "swap",
-  variable: "--space-mono",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +60,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [{ url: ogImageUrl(SITE_NAME, "Backend & Full-Stack Engineer"), width: 1200, height: 630, alt: SITE_TITLE }],
+    images: [{ url: ogImageUrl(SITE_NAME, AUTHOR.jobTitle), width: 1200, height: 630, alt: SITE_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
@@ -69,7 +68,7 @@ export const metadata: Metadata = {
     creator: AUTHOR.twitter,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [ogImageUrl(SITE_NAME, "Backend & Full-Stack Engineer")],
+    images: [ogImageUrl(SITE_NAME, AUTHOR.jobTitle)],
   },
   robots: {
     index: true,
@@ -104,16 +103,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
-      <body className={`${incognito.variable} ${inter.className} ${gitlabmono.variable} ${oxanium.variable} ${spaceMono.variable} font-mono text-ink`}
-      >
-        <CursorGlow />
-        <Navbar />
-        <main className="pb-0">
-          {children}
-        </main>
-        <ScrollToTop />
-        <Footer />
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <body>
+        <div className="shell">
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

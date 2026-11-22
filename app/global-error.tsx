@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-
+// Replaces the root layout when it fails, so it can't rely on globals.css or fonts.
 export default function GlobalError({
   error,
   reset,
@@ -9,102 +8,40 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error("Global error:", error);
-  }, [error]);
-
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, fontFamily: "system-ui, sans-serif" }}>
-        <div
-          style={{
-            minHeight: "100vh",
-            backgroundColor: "#FAFAFA",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "24px",
-          }}
-        >
-          <div style={{ maxWidth: "800px", width: "100%" }}>
-            <div
-              style={{
-                position: "relative",
-                backgroundColor: "white",
-                border: "6px solid #0D0F14",
-                padding: "64px 48px",
-                boxShadow: "12px 12px 0 #E8192C",
-              }}
+      <body
+        style={{
+          margin: 0,
+          minHeight: "100vh",
+          background: "#faf8fa",
+          color: "#1e1822",
+          fontFamily: "Georgia, 'Times New Roman', serif",
+        }}
+      >
+        <main style={{ maxWidth: "46rem", margin: "0 auto", padding: "96px 24px" }}>
+          <p style={{ margin: "0 0 12px", fontFamily: "ui-monospace, monospace", fontSize: 12.5, color: "#6a6170" }}>
+            error{error.digest ? ` · ${error.digest}` : ""}
+          </p>
+          <h1 style={{ margin: "0 0 16px", fontSize: 40, fontWeight: 600, letterSpacing: "-0.02em" }}>
+            Something broke
+          </h1>
+          <p style={{ margin: "0 0 28px", fontSize: 19, lineHeight: 1.6, color: "#5e5563" }}>
+            The site failed to load. Trying again usually works.
+          </p>
+          <p style={{ display: "flex", gap: 20, fontFamily: "system-ui, sans-serif", fontSize: 14 }}>
+            <button
+              type="button"
+              onClick={reset}
+              style={{ background: "none", border: 0, padding: 0, color: "#6a3d7c", font: "inherit", fontWeight: 500, cursor: "pointer" }}
             >
-
-              {/* Error Icon */}
-              <div
-                style={{
-                  width: "96px",
-                  height: "96px",
-                  border: "6px solid #E8192C",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "32px",
-                  fontSize: "48px",
-                }}
-              >
-                ⚠️
-              </div>
-
-              <h1
-                style={{
-                  fontSize: "48px",
-                  fontWeight: 900,
-                  marginBottom: "24px",
-                  color: "#1A1D24",
-                  lineHeight: 1.2,
-                }}
-              >
-                Critical Error
-              </h1>
-
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "#4A5068",
-                  lineHeight: 1.8,
-                  marginBottom: "32px",
-                }}
-              >
-                A critical error occurred. Please try refreshing the page or
-                contact support if the problem persists.
-              </p>
-
-              <button
-                onClick={reset}
-                style={{
-                  padding: "16px 32px",
-                  backgroundColor: "#E8192C",
-                  border: "3px solid #E8192C",
-                  color: "white",
-                  fontSize: "11px",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                  e.currentTarget.style.color = "#E8192C";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = "#E8192C";
-                  e.currentTarget.style.color = "white";
-                }}
-              >
-                TRY AGAIN
-              </button>
-            </div>
-          </div>
-        </div>
+              try again
+            </button>
+            <a href="/" style={{ color: "#6a6170" }}>
+              ← back to writing
+            </a>
+          </p>
+        </main>
       </body>
     </html>
   );

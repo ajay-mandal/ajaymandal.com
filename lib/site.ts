@@ -12,7 +12,7 @@ export const SITE_URL = (
 
 export const SITE_NAME = "Ajay Mandal";
 
-export const SITE_TITLE = "Ajay Mandal — Backend & Full-Stack Engineer";
+export const SITE_TITLE = "Ajay Mandal — Software Engineer & Architect";
 
 export const SITE_DESCRIPTION =
   "Ajay Mandal is a backend and full-stack engineer building AI platforms, distributed systems and open-source tools with TypeScript, NestJS, Next.js, Postgres and Google Cloud. Read project deep-dives and engineering write-ups.";
@@ -35,8 +35,10 @@ export const SITE_KEYWORDS = [
 
 export const AUTHOR = {
   name: "Ajay Mandal",
-  jobTitle: "Backend Engineer",
+  /** The brand line: header tagline, site title, share-image subtitle, Person.jobTitle. */
+  jobTitle: "Software Engineer & Architect",
   twitter: "@ajaymandal01",
+  email: "ajaymandal.work07@gmail.com",
   /** Profiles Google uses to connect this site to the same person (Person.sameAs). */
   sameAs: [
     "https://github.com/ajay-mandal",
