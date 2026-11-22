@@ -9,13 +9,13 @@ export const metadata = pageMetadata({
   description:
     "About Ajay Mandal: a backend engineer building the agents, retrieval pipelines and job queues behind AI products. Stack, skills and what he's working on now.",
   path: "/about",
-  ogSubtitle: "Backend engineer for AI products",
+  ogSubtitle: AUTHOR.jobTitle,
 });
 
 export default function AboutPage() {
   return (
     <>
-      <h1 className="page-title" style={{ marginBottom: 36 }}>
+      <h1 className="page-title" style={{ marginBottom: 32 }}>
         About me
       </h1>
 
@@ -113,7 +113,7 @@ export default function AboutPage() {
         <h2 id="now-h" className="section-label">
           Now
         </h2>
-        <p className="prose" style={{ margin: "0 0 6px", fontSize: 17.5, lineHeight: 1.6 }}>
+        <p className="prose" style={{ margin: "0 0 6px", fontSize: 16, lineHeight: 1.6 }}>
           {NOW.text}
         </p>
         <span className="mono meta" style={{ fontSize: 12 }}>

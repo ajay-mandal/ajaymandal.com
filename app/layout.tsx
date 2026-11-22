@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [{ url: ogImageUrl(SITE_NAME, "Backend & Full-Stack Engineer"), width: 1200, height: 630, alt: SITE_TITLE }],
+    images: [{ url: ogImageUrl(SITE_NAME, AUTHOR.jobTitle), width: 1200, height: 630, alt: SITE_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     creator: AUTHOR.twitter,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [ogImageUrl(SITE_NAME, "Backend & Full-Stack Engineer")],
+    images: [ogImageUrl(SITE_NAME, AUTHOR.jobTitle)],
   },
   robots: {
     index: true,

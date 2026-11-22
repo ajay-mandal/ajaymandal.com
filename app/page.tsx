@@ -16,7 +16,7 @@ import {
 export const metadata = pageMetadata({
   description: SITE_DESCRIPTION,
   path: "/",
-  ogSubtitle: "Backend & Full-Stack Engineer",
+  ogSubtitle: AUTHOR.jobTitle,
 });
 
 const homeJsonLd = [

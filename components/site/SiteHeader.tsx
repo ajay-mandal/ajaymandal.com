@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AUTHOR } from "@/lib/site";
 
 const NAV = [
   { href: "/", label: "writing", match: (p: string) => p === "/" || p.startsWith("/blog") },
@@ -22,7 +23,7 @@ export default function SiteHeader() {
           <span className="brand-name">
             ajay<span>/</span>mandal
           </span>
-          <span className="brand-tag">backend engineer</span>
+          <span className="brand-tag">{AUTHOR.jobTitle.toLowerCase()}</span>
         </span>
       </Link>
       <nav className="site-nav" aria-label="Main">

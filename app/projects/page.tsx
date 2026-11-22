@@ -67,7 +67,7 @@ export default function ProjectsPage() {
               <h3>
                 <Link href={`/projects/${project.slug}`}>{project.name}</Link>
               </h3>
-              <span className="mono meta" style={{ fontSize: 12.5 }}>
+              <span className="mono meta" style={{ fontSize: 12 }}>
                 {project.year}
               </span>
             </div>

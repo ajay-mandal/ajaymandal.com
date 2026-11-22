@@ -90,7 +90,7 @@ export default async function ProjectPage({
       <h1 className="page-title">{project.name}</h1>
       <p className="post-lead">{project.tagline}</p>
 
-      <p className="pub-links" style={{ marginBottom: 40, fontSize: 14 }}>
+      <p className="pub-links" style={{ marginBottom: 36, fontSize: 13 }}>
         <a className="link-accent" href={project.github}>
           Source on GitHub ↗
         </a>
