@@ -14,6 +14,10 @@ import {
 } from "@/lib/site";
 
 // Serif for reading, sans for interface text, mono for dates and code.
+// Load every Google font as its variable font (no `weight` list). Asking for
+// fixed weights of a variable font can make Google return dynamic
+// "/l/font?kit=...&skey=..." URLs, which Next 16.1's Turbopack can't parse
+// ("next/font/google queries have exactly one entry"); it broke a Vercel build.
 const serif = Source_Serif_4({
   subsets: ["latin"],
   style: ["normal", "italic"],
@@ -30,7 +34,6 @@ const sans = Inter({
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
   variable: "--font-mono",
 });
