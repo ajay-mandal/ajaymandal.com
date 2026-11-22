@@ -23,8 +23,6 @@ export default function Footer() {
       <span className="whitespace-nowrap">
         Built with{" "}
         <strong style={{ color: "#E8192C", fontWeight: 400 }}>Next.js {String(16)}</strong>
-        {" "}+{" "}
-        <strong style={{ color: "#E8192C", fontWeight: 400 }}>Supabase</strong>
       </span>
     </footer>
   );

@@ -14,8 +14,6 @@ export const metadata = pageMetadata({
   ogSubtitle: "Project deep-dives & engineering findings",
 });
 
-export const revalidate = 60;
-
 export default async function BlogPage() {
   const posts = await getAllPosts();
 

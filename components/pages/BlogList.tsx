@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import { formatBlogDate } from "@/lib/blog";
-import type { BlogPost } from "@/lib/supabase";
+import { formatBlogDate, type BlogPost } from "@/lib/blog-shared";
 
 const CATEGORY_LABEL: Record<BlogPost["category"], string> = {
   project: "PROJECT",

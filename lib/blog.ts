@@ -1,85 +1,63 @@
-import { getSupabase, type BlogPost } from "./supabase";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { buildPost } from "./markdown";
+import type { BlogPost } from "./blog-shared";
 
-/** Fetch all published posts, newest first */
-export async function getAllPosts(): Promise<BlogPost[]> {
-  const db = getSupabase();
-  if (!db) return [];
-  const { data, error } = await db
-    .from("posts")
-    .select("*")
-    .eq("published", true)
-    .order("published_at", { ascending: false });
+// Client components import from ./blog-shared directly; this file reads the disk.
+export type { BlogPost } from "./blog-shared";
+export { formatBlogDate } from "./blog-shared";
 
-  if (error) {
-    console.error("[blog] getAllPosts error:", error.message);
-    return [];
+const POSTS_DIR = path.join(process.cwd(), "blog-posts");
+
+let postsPromise: Promise<BlogPost[]> | null = null;
+
+/** Parse every post once per process; Shiki highlighting is the slow part. */
+async function loadPosts(): Promise<BlogPost[]> {
+  const files = (await fs.readdir(POSTS_DIR)).filter((f) => f.endsWith(".md"));
+  const posts = await Promise.all(
+    files.map(async (file) => {
+      const raw = await fs.readFile(path.join(POSTS_DIR, file), "utf-8");
+      const { post, errors } = await buildPost(raw);
+      if (errors.length > 0) {
+        throw new Error(`[blog] blog-posts/${file}: ${errors.join("; ")}`);
+      }
+      return post as BlogPost;
+    }),
+  );
+
+  const seen = new Map<string, string>();
+  for (const [i, post] of posts.entries()) {
+    const other = seen.get(post.slug);
+    if (other) {
+      throw new Error(`[blog] blog-posts/${files[i]} and ${other} share the slug "${post.slug}"`);
+    }
+    seen.set(post.slug, `blog-posts/${files[i]}`);
   }
-  return data as BlogPost[];
+
+  return posts
+    .filter((post) => post.published)
+    .sort((a, b) => b.published_at.localeCompare(a.published_at));
 }
 
-/** Fetch posts by category */
+/** All published posts, newest first */
+export async function getAllPosts(): Promise<BlogPost[]> {
+  postsPromise ??= loadPosts();
+  return postsPromise;
+}
+
+/** Published posts in one category, newest first */
 export async function getPostsByCategory(
   category: BlogPost["category"],
 ): Promise<BlogPost[]> {
-  const db = getSupabase();
-  if (!db) return [];
-  const { data, error } = await db
-    .from("posts")
-    .select("*")
-    .eq("published", true)
-    .eq("category", category)
-    .order("published_at", { ascending: false });
-
-  if (error) {
-    console.error("[blog] getPostsByCategory error:", error.message);
-    return [];
-  }
-  return data as BlogPost[];
+  return (await getAllPosts()).filter((post) => post.category === category);
 }
 
-/** Fetch a single post by slug */
+/** A single published post by slug */
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const db = getSupabase();
-  if (!db) return null;
-  const { data, error } = await db
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("published", true)
-    .single();
-
-  if (error) {
-    console.error("[blog] getPostBySlug error:", error.message);
-    return null;
-  }
-  return data as BlogPost;
+  return (await getAllPosts()).find((post) => post.slug === slug) ?? null;
 }
 
-/** Fetch n most recent posts (for homepage preview) */
+/** The n most recent published posts (for homepage preview) */
 export async function getRecentPosts(limit = 3): Promise<BlogPost[]> {
-  const db = getSupabase();
-  if (!db) return [];
-  const { data, error } = await db
-    .from("posts")
-    .select(
-      "id, title, slug, excerpt, category, tags, published_at, cover_image",
-    )
-    .eq("published", true)
-    .order("published_at", { ascending: false })
-    .limit(limit);
-
-  if (error) {
-    console.error("[blog] getRecentPosts error:", error.message);
-    return [];
-  }
-  return data as BlogPost[];
-}
-
-/** Format date for display */
-export function formatBlogDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  return (await getAllPosts()).slice(0, limit);
 }

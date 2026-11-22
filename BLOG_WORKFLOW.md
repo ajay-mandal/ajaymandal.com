@@ -1,3 +1,5 @@
+> **Retired:** this describes the old Supabase upload pipeline. Posts now live in `blog-posts/*.md`, are rendered at build time, and go live with the next deploy. Validate with `npm run check-posts`. See CLAUDE.md.
+
 # Blog Workflow Guide
 
 > **Writing a new post?** Start with [blog-templates/README.md](blog-templates/README.md). It has the current frontmatter rules, templates and the `--dry-run` check. This file is older background on the Supabase setup and pipeline.

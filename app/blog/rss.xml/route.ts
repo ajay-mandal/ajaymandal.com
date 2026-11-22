@@ -1,7 +1,8 @@
 import { getAllPosts } from "@/lib/blog";
 import { AUTHOR, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 
-export const revalidate = 3600;
+// Built once from blog-posts/*.md; a new post ships with the next deploy.
+export const dynamic = "force-static";
 
 function escapeXml(value: string): string {
   return value

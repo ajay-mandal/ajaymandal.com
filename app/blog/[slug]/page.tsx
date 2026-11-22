@@ -2,12 +2,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostBySlug, getAllPosts, formatBlogDate } from "@/lib/blog";
 import type { Metadata } from "next";
-import type { BlogPost } from "@/lib/supabase";
+import type { BlogPost } from "@/lib/blog";
 import { SharePost } from "@/components/global/SharePost";
 import JsonLd from "@/components/global/JsonLd";
 import { AUTHOR, PERSON_ID, SITE_NAME, SITE_URL, absoluteUrl, ogImageUrl } from "@/lib/site";
 
-export const revalidate = 60;
+// Posts come from blog-posts/*.md at build time; any other slug is a 404.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
