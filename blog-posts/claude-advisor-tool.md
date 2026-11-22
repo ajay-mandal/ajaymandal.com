@@ -10,8 +10,11 @@ tags:
   - claude-api
   - ai-agents
   - cost-optimization
+ogImage: /images/blog/claude-advisor-tool/cover.png
 description: "Claude's advisor tool lets a cheaper model ask a stronger one for help mid-task. How it works, how to enable it in Claude Code and the API, and the cost."
 ---
+
+![A small executor model asking a larger advisor model for guidance](/images/blog/claude-advisor-tool/cover.svg)
 
 **TL;DR:** The Claude advisor tool pairs a cheaper main model (the executor) with a stronger one (the advisor). The executor does the work and asks the advisor for guidance only at decision points: before it picks an approach, when it's stuck, and before it says it's done. You get close to the stronger model's quality, and most tokens are billed at the cheaper model's rate.
 

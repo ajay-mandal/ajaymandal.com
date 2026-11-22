@@ -12,11 +12,11 @@ tags:
   - Oauth
   - prisma
   - typescript
-ogImage: /images/blog/inhouse-authentication-using-authjs/inhouse-authentication-using-authjs.png
+ogImage: /images/blog/inhouse-authentication-using-authjs/cover.png
 description: "Build in-house auth in Next.js with Auth.js v5: OAuth providers, middleware-protected routes, a Prisma user schema, admin routes and email verification."
 ---
 
-![inhouse-authentication-using-authjs](/images/blog/inhouse-authentication-using-authjs/inhouse-authentication-using-authjs.png)
+![A padlock with a user badge](/images/blog/inhouse-authentication-using-authjs/cover.svg)
 
 <div class="flex justify-between">
 

@@ -9,11 +9,11 @@ tags:
   - reactjs
   - typescript
   - zustand
-ogImage: /images/blog/zustand-react/zustand-reactjs.jpg
+ogImage: /images/blog/zustand-react/cover.png
 description: "Zustand for React state management: small, fast and low on boilerplate. Install it, create a store and trigger actions from your components."
 ---
 
-![zustand-reactjs](/images/blog/zustand-react/zustand-reactjs.jpg)
+![A small store jar holding state and feeding two components](/images/blog/zustand-react/cover.svg)
 
 State management becomes very crucial when it comes to build a robust React applications, and Zustand has emerged as a lightweight, elegant  
 solution that simplifies the way we handle global state.

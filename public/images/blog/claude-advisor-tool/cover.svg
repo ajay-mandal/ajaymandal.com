@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A small executor model asking a larger advisor model for guidance">
+  <rect width="1200" height="630" fill="#EFE7F1"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <g transform="translate(-10 34)">
+    <rect x="330" y="300" width="180" height="180" rx="30" fill="#FFFFFF"/>
+    <path d="M378 360l30 24-30 24"/>
+    <path d="M428 420h48"/>
+    <circle cx="800" cy="260" r="112" fill="#6A3D7C"/>
+    <circle cx="800" cy="260" r="36" fill="#FAF8FA"/>
+    <path d="M520 330C590 230 640 205 676 215" stroke-dasharray="1 20"/>
+    <path d="M700 360C650 430 590 448 528 440"/>
+    <path d="M556 420l-28 20 32 10"/>
+    <path d="M934 150l22-22M948 210h30M896 110l10-26"/>
+    </g>
+  </g>
+</svg>

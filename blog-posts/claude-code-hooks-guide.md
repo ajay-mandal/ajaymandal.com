@@ -11,8 +11,11 @@ tags:
   - hooks
   - automation
   - productivity
+ogImage: /images/blog/claude-code-hooks-guide/cover.png
 description: "What Claude Code hooks are and how to use them: events, settings.json config, exit codes and JSON output, five useful hooks, and how to debug them."
 ---
+
+![A hook hanging from a session timeline of events](/images/blog/claude-code-hooks-guide/cover.svg)
 
 Hooks are shell commands that Claude Code runs automatically at fixed points in a session: before a tool runs, after a file is edited, when Claude finishes a reply, and so on. Instructions in `CLAUDE.md` are requests the model usually follows. A hook runs every single time, so use hooks for anything that must always happen.
 

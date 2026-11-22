@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A hook hanging from a session timeline of events">
+  <rect width="1200" height="630" fill="#E8E4EE"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <path d="M170 200H1030"/>
+    <circle cx="290" cy="200" r="16" fill="#FAF8FA"/>
+    <circle cx="440" cy="200" r="16" fill="#FAF8FA"/>
+    <circle cx="760" cy="200" r="16" fill="#FAF8FA"/>
+    <circle cx="910" cy="200" r="16" fill="#FAF8FA"/>
+    <circle cx="600" cy="200" r="22" fill="#6A3D7C"/>
+    <path d="M600 222V410a78 78 0 0 1-156 0v-46" stroke="#6A3D7C" stroke-width="18"/>
+    <path d="M444 364l34 28" stroke="#6A3D7C" stroke-width="18"/>
+  </g>
+</svg>
