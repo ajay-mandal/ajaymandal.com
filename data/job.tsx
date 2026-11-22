@@ -2,7 +2,6 @@ export type JobProps = {
     id: string;
     name: string;
     url?: string;
-    logo: string;
     jobTitle: string;
     startDate: string;
     endDate: string;
@@ -18,7 +17,6 @@ export const JOBS: JobProps[] = [
         id: "juteq",
         name: "JUTEQ Inc",
         url: "https://juteq.ca/",
-        logo: "/juteq.jpeg",
         jobTitle: "Backend Engineer",
         startDate: "2025-06",
         endDate: "",
@@ -29,7 +27,6 @@ export const JOBS: JobProps[] = [
     {
         id: "stealth",
         name: "Stealth Startup",
-        logo: "/stealth.png",
         jobTitle: "Full-Stack Engineer",
         startDate: "2025-01",
         endDate: "2025-04",
@@ -41,7 +38,6 @@ export const JOBS: JobProps[] = [
         id: "kyndryl",
         name: "Kyndryl",
         url: "https://www.kyndryl.com/in/en",
-        logo: "/KD.svg",
         jobTitle: "Project Intern",
         startDate: "2024-04",
         endDate: "2024-07",

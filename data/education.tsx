@@ -2,7 +2,6 @@ export type EducationProps = {
     id: string;
     name: string;
     url: string;
-    logo: string;
     startDate: string;
     endDate: string;
     description: string;
@@ -19,7 +18,6 @@ export const EDUCATIONS: EducationProps[] = [
         id: "JGI",
         name: "Jain University",
         url: "https://www.jainuniversity.ac.in/",
-        logo: "/edu/FET-Logo.png",
         startDate: "Oct 2020",
         endDate: "May 2024",
         description: "Bachelor of Engineering in Computer Science and Engineering\n\nRelevant Coursework: Artificial Intelligence, Internet of Things (IoT), Cloud Computing, Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Software Engineering\n\nCapstone Project: AWS Serverless Luggage Tracking System Integrating IoT – Designed a cloud-native solution replacing RFID legacy systems.",
@@ -32,7 +30,6 @@ export const EDUCATIONS: EducationProps[] = [
         id: "KTM",
         name: "Kathmandu Model Higher Secondary School",
         url: "https://ktmmodelcollege.edu.np/",
-        logo: "/edu/kmc.png",
         startDate: "Mar 2018",
         endDate: "Apr 2020",
         description: "Higher Education in Mathematics and Physics\n\nKey Focus: Specialized in the Physical Sciences track with a concentration in Computer Science, building a foundational understanding of algorithms, logic, and calculus.",
@@ -45,7 +42,6 @@ export const EDUCATIONS: EducationProps[] = [
         id: "MTPS",
         name: "Mother Teresa Public School",
         url: "https://www.facebook.com/mtpsjanakpur",
-        logo: "/edu/mtps.jpeg",
         startDate: "2009",
         endDate: "2018",
         description: "Primary Education\n\nCompleted foundational education covering core subjects including mathematics, science, and English with a focus on academic excellence and holistic development.",
