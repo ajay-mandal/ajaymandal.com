@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "upload-blogs": "node scripts/upload-blogs.js"
+    "check-posts": "node scripts/check-posts.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
@@ -15,11 +15,9 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
-    "@supabase/supabase-js": "^2.97.0",
     "@types/marked": "^5.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "dotenv": "^17.3.1",
     "framer-motion": "^12.34.3",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",

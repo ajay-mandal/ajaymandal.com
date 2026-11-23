@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A small store jar holding state and feeding two components">
+  <rect width="1200" height="630" fill="#EFE7F1"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <rect x="430" y="222" width="270" height="230" rx="34" fill="#FFFFFF"/>
+    <rect x="410" y="186" width="310" height="48" rx="18" fill="#6A3D7C"/>
+    <circle cx="505" cy="350" r="28" fill="#D3BCDD"/>
+    <circle cx="575" cy="320" r="28" fill="#6A3D7C"/>
+    <circle cx="632" cy="378" r="28" fill="#FAF8FA"/>
+    <path d="M700 290H800M700 386H800"/>
+    <rect x="800" y="256" width="68" height="68" rx="14" fill="#FFFFFF"/>
+    <rect x="800" y="352" width="68" height="68" rx="14" fill="#D3BCDD"/>
+    <path d="M300 337h100M378 316l22 21-22 21"/>
+  </g>
+</svg>

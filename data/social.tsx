@@ -28,14 +28,14 @@ export const socialLinks = [
   },
   {
     id: 3,
-    name: "Linkedin",
+    name: "LinkedIn",
     url: "https://linkedin.com/in/ajay-mandal",
     icon: BiLogoLinkedinSquare,
     status: "social",
   },
   {
     id: 4,
-    name: "Youtube",
+    name: "YouTube",
     url: "https://youtube.com/@zexa_yt",
     icon: BiLogoYoutube,
     status: "social",

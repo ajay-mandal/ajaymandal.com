@@ -1,4 +1,5 @@
-<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="4" width="248" height="248" fill="white" stroke="#111" stroke-width="8"/>
-  <text x="128" y="168" text-anchor="middle" font-family="Oxanium, sans-serif" font-weight="800" font-size="130" letter-spacing="6" fill="#E8192C">AM</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#FAF8FA"/>
+  <text x="29" y="46" text-anchor="middle" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="46" font-weight="700" font-style="italic" fill="#1E1822">a</text>
+  <circle cx="47" cy="43" r="4.2" fill="#6A3D7C"/>
 </svg>

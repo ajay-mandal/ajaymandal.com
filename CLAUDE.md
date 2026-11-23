@@ -10,31 +10,31 @@ Personal portfolio + blog for Ajay Mandal (ajaymandal.com). Next.js 16 App Route
 npm run dev            # dev server on :3000
 npm run build          # production build (also the main type-check — there is no test suite)
 npm run lint           # next lint (eslint-config-next)
-npm run upload-blogs   # push ./blog-posts/*.md into Supabase (see below)
+npm run check-posts    # validate ./blog-posts/*.md frontmatter (the build fails on the same errors)
 ```
 
-Env vars live in `.env.local` (template: `.env.example`): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` (upload script only). `NEXT_PUBLIC_SITE_URL` is optional and used for OG/canonical URLs.
+Env vars live in `.env.local` (template: `.env.example`). None are required; `NEXT_PUBLIC_SITE_URL` is optional and used for OG/canonical URLs.
 
 ## Architecture
 
-**Two halves:** a static single-page portfolio (`app/page.tsx` stacks section components from `components/pages/`, anchored by `#skills`, `#projects`, `#blog`, `#contact`) and a Supabase-backed blog (`app/blog`, `app/blog/[slug]`).
+**Pages:** `/` is the writing list (short intro + posts with a client-side tag filter in `components/site/WritingList.tsx`, `?tag=` deep-linkable). Posts live at `/blog/[slug]`; `/blog` permanently redirects to `/` (`next.config.mjs`). `/projects`, `/projects/[slug]`, `/life` (work, education, publications timeline) and `/about` (bio, stack, skills, now) round it out. Every page renders inside `app/layout.tsx`'s `.shell` with `components/site/SiteHeader.tsx` and `SiteFooter.tsx`. The only contact is email (`AUTHOR.email` in `lib/site.ts`). The current employer is named only on `/life`, never in intros, bios or metadata.
 
-**Portfolio content is data, not CMS.** Projects, jobs, education, publications and social links are hard-coded typed arrays in `data/*.tsx`. Edit those files to change what appears on the site.
+**Portfolio content is data, not CMS.** Projects, jobs, education, publications, social links and the about page's stack/skills/now are hard-coded in `data/`. Edit those files to change what appears on the site.
 
-**Blog pipeline (write → upload → render):**
-1. Posts are authored as Markdown with Astro-style frontmatter (`title`, `slug`, `pubDatetime`, `modDatetime`, `draft`, `tags`, `category`, `ogImage`, `description`) in a gitignored `/blog-posts` folder.
-2. `scripts/upload-blogs.js` (ESM, run with plain node) parses each file through `lib/markdown.js`: gray-matter → marked → Shiki. It **pre-renders HTML at upload time** and upserts it by `slug` into the Supabase `posts` table. `content` stores the final HTML, not Markdown. Changing rendering logic in `lib/markdown.js` therefore only affects posts once they are re-uploaded.
-3. Shiki runs with three named themes (`light`, `navy`, `sepia`) and `defaultColor: false`, so code colors come from CSS variables that `app/globals.css` switches via `[data-theme=...]`. These three theme names must stay in sync across `lib/markdown.js`, `app/globals.css`, and `components/global/ReadingModeToggle.tsx` (which persists the choice in `localStorage["app-theme"]`; `app/blog/[slug]/layout.tsx` restores it).
+**Blog pipeline (write → commit → build):**
+1. Posts are Markdown files with Astro-style frontmatter (`title`, `slug`, `pubDatetime`, `modDatetime`, `draft`, `tags`, `category`, `ogImage`, `description`) in the committed `/blog-posts` folder. Publishing a post is committing its file; Vercel rebuilds the site.
+2. `lib/blog.ts` reads every file at build time and renders it through `buildPost()` in `lib/markdown.js`: gray-matter → marked → Shiki. A frontmatter error or a duplicate slug fails the build. Drafts (`draft: true`) are skipped. `lib/blog-shared.ts` holds the `BlogPost` type and the pure helpers (`formatBlogDate`, `wordCount`, `readingMinutes`, `postThumbnail`) for client components, which must not import `lib/blog.ts` (it uses `fs`).
+3. The site is light only. Shiki uses the single `github-light` theme; each block is wrapped in `<div class="code-block" data-lang>` with a `.code-head` label, and `components/site/CopyCodeButtons.tsx` adds the copy button on the post page. Tables are wrapped in `.table-scroll`. A `## Sources` or `## Resources` heading styles the list after it as a numbered source list.
 4. Image paths `@assets/images/...` and `ogImage` relative paths are rewritten to `/images/blog/...`, so post images must exist under `public/images/blog/`.
 5. Category is the frontmatter `category` if present, else `determineCategoryFromTags()` in `lib/markdown.js`. BLOG_WORKFLOW.md's keyword list is out of date; the code is authoritative.
 
-**Data access:** `lib/supabase.ts` exposes `getSupabase()`, which returns `null` when env vars are missing. Every query in `lib/blog.ts` handles that and the error case by returning `[]`/`null`, so the site builds and renders without Supabase configured. The `BlogPost` type and the SQL migration plus RLS policies for `posts` live in `lib/supabase.ts`. The `supabase` Proxy export is deprecated.
+**SEO / GEO / agents:** `lib/site.ts` holds the brand copy (`SITE_DESCRIPTION`, `AUTHOR`), `personJsonLd()` (the one Person entity every page's JSON-LD uses; never add the employer) and `AI_CRAWLERS` (named in `robots.txt`). `lib/llms.ts` builds `/llms.txt` (index), `/llms-full.txt` (every post) and the per-post Markdown served at `/blog/<slug>.md` (rewrite to `app/md/blog/[slug]`), making root-relative links absolute outside code blocks. RSS carries full post HTML in `content:encoded`. Cloudflare sits in front of the site: its bot settings can block AI crawlers regardless of `robots.txt`.
 
-**Caching:** blog routes use `revalidate = 60` (ISR). `[slug]` uses `generateStaticParams` from `getAllPosts()`. The homepage `BlogSection` calls `unstable_noStore()` so recent posts are always fresh.
+**Caching:** all blog routes are static. `[slug]` uses `generateStaticParams` from `getAllPosts()` with `dynamicParams = false`, so unknown slugs 404, and the RSS route is `force-static`. New or edited posts go live with the next deploy.
 
-**Styling:** much of the UI uses inline Tailwind arbitrary values and scoped `<style>` blocks with a fixed palette (`#E8192C` red, `#0D0F14` ink, `#4A5068`/`#8892AA` greys) and fonts exposed as CSS variables in `app/layout.tsx` (`--oxanium`, `--space-mono`, `--inter`, plus local `incognito`/`gitlabmono` from `components/fonts`). Match this neo-brutalist style (thick borders, hard offset shadows) when adding UI. Rendered article HTML is styled through `.article-content` in `globals.css`.
+**Styling:** minimal, one 46rem column. All styles are plain classes in `app/globals.css` driven by tokens on `:root` (Plum theme: lilac-tinted paper `--bg` #FAF8FA, `--ink` #1E1822, `--muted`/`--meta` greys, hairline `--rule`, one accent `--accent` #6A3D7C used sparingly; the favicon, `/og` and `global-error.tsx` hard-code the same hexes). Fonts come from `next/font` in `app/layout.tsx`: Source Serif 4 (`--font-serif`, reading text and headings), Inter (`--font-sans`, interface), JetBrains Mono (`--font-mono`, dates and code). Reuse the existing classes (`.page-title`, `.rule-label`, `.post-row`, `.timeline`, `.chips`, `.prose`) before adding new ones; no heavy borders, shadows or animation. The current nav item and selected tag get a 5px accent dot; hovers only change colour (prose links keep a soft `--accent-soft` underline that turns `--accent` on hover). Body text is 17px serif; keep the scale small. Rendered article HTML is styled through `.article-content`. The logo is an italic serif "a." mark plus the `ajay/mandal` mono wordmark (`SiteHeader`, `public/logo.svg`, `app/og/route.tsx`).
 
-`blog-templates/` holds the author guide (README.md: frontmatter rules, writing quirks, SEO checklist) and post templates. Copy a template into `blog-posts/` to write a post; `npm run upload-blogs -- --dry-run` validates without uploading. BLOG_WORKFLOW.md is older background on setup and the pipeline.
+`blog-templates/` holds the author guide (README.md: frontmatter rules, writing quirks, SEO checklist) and post templates. Copy a template into `blog-posts/` to write a post; `npm run check-posts` validates it. BLOG_WORKFLOW.md describes the retired Supabase pipeline.
 
 ## Search rule
 

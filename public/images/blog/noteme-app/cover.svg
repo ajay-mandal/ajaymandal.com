@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A notebook with a bookmark next to a small cloud">
+  <rect width="1200" height="630" fill="#F2EDE6"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <rect x="410" y="150" width="280" height="340" rx="20" fill="#FFFFFF"/>
+    <path d="M410 214h-22M410 280h-22M410 346h-22M410 412h-22"/>
+    <path d="M462 250h170M462 300h190M462 350h150M462 400h176" stroke-width="5" opacity=".45"/>
+    <path d="M640 150v92l-22-16-22 16v-92" fill="#6A3D7C"/>
+    <path d="M780 300a42 42 0 0 1 10-82 58 58 0 0 1 110 12 40 40 0 0 1 6 80z" fill="#D3BCDD"/>
+    <path d="M846 232l-20 36h28l-20 36" stroke-width="6"/>
+  </g>
+</svg>

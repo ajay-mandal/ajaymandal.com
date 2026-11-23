@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PROJECT } from "@/data/Projects";
+import { getRepoStats, repoSlug } from "@/lib/github";
 import JsonLd from "@/components/global/JsonLd";
 import { PERSON_ID, SITE_URL, WEBSITE_ID, absoluteUrl, pageMetadata } from "@/lib/site";
 
@@ -43,60 +44,58 @@ const projectsJsonLd = [
   },
 ];
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = [...PROJECT].sort((a, b) => Number(b.year) - Number(a.year));
+  const stats = await Promise.all(projects.map((p) => getRepoStats(p.github)));
+
   return (
-    <main className="min-h-screen bg-[#F0F2F5]">
+    <>
       <JsonLd data={projectsJsonLd} />
+      <h1 className="page-title">Projects</h1>
+      <p className="page-lede">
+        Things I&apos;ve built and maintain. Each one is open source on GitHub.
+      </p>
 
-      <header className="relative bg-white pb-12 sm:pb-16 lg:pt-32 lg:pb-20 border-b-[3px] sm:border-b-[4px] lg:border-b-[6px] border-[#0D0F14]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 lg:pt-0">
-          <div className="flex items-center gap-2 mb-6 sm:mb-8">
-            <span className="w-8 sm:w-12 lg:w-16 h-[2px] bg-[#E8192C]" />
-            <span className="font-[family-name:var(--space-mono)] text-[10px] lg:text-[11px] tracking-[0.2em] uppercase text-[#E8192C] font-bold">
-              Apps &amp; Open Source
-            </span>
-          </div>
-          <h1 className="font-[family-name:var(--oxanium)] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6 text-[#0D0F14]">
-            Selected <span className="text-[#E8192C]">Work</span>
-          </h1>
-          <p className="font-[family-name:var(--space-mono)] text-sm sm:text-base leading-relaxed text-[#4A5068] max-w-2xl">
-            {PROJECTS_DESCRIPTION}
-          </p>
+      <section aria-labelledby="projects-h">
+        <div className="rule-label">
+          <h2 id="projects-h">
+            {projects.length} {projects.length === 1 ? "project" : "projects"}
+          </h2>
         </div>
-      </header>
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <ul className="grid gap-6 sm:grid-cols-2">
-          {PROJECT.map((project) => (
-            <li key={project.slug}>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group flex h-full flex-col bg-white border-[3px] border-[#0D0F14] p-6 sm:p-8 shadow-[4px_4px_0_#0D0F14] hover:shadow-[6px_6px_0_#E8192C] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all"
-              >
-                <span className="font-[family-name:var(--space-mono)] text-[10px] tracking-[0.2em] uppercase text-[#E8192C] mb-3">
-                  {project.category} · {project.year}
+        {projects.map((project, i) => {
+          const repo = stats[i];
+          return (
+            <article key={project.slug} className="project-card">
+              {project.image && (
+                <Link href={`/projects/${project.slug}`} className="figure-frame project-shot" tabIndex={-1} aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static image from /public */}
+                  <img src={project.image} alt="" loading="lazy" />
+                </Link>
+              )}
+              <h3 className="project-name">
+                <Link href={`/projects/${project.slug}`}>{project.name}</Link>
+              </h3>
+              <p className="project-desc">{project.tagline}</p>
+              <div className="project-foot">
+                <span className="repo-inline">
+                  {repo ? (
+                    <>
+                      <span><b>{repo.stars}</b> stars</span>
+                      <span><b>{repo.forks}</b> forks</span>
+                      {repo.language && <span>{repo.language}</span>}
+                    </>
+                  ) : (
+                    <span className="mono meta">{project.stack.slice(0, 4).join(" · ")}</span>
+                  )}
                 </span>
-                <h2 className="font-[family-name:var(--oxanium)] font-black text-2xl sm:text-3xl leading-tight text-[#1A1D24] mb-3 group-hover:text-[#E8192C] transition-colors">
-                  {project.name}
-                </h2>
-                <p className="font-[family-name:var(--space-mono)] text-xs sm:text-sm leading-relaxed text-[#4A5068] mb-5">
-                  {project.tagline}
-                </p>
-                <div className="mt-auto flex flex-wrap gap-2">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-[family-name:var(--space-mono)] text-[9px] tracking-[0.1em] uppercase border-2 border-[rgba(13,15,20,.18)] text-[#4A5068] px-2.5 py-1"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                <a className="mono repo-link" href={project.github}>
+                  {repoSlug(project.github) ?? "GitHub"} ↗
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </section>
-    </main>
+    </>
   );
 }

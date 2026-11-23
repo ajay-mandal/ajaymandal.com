@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A loop with three steps and an exit to a stop square">
+  <rect width="1200" height="630" fill="#F2EDE6"/>
+  <g transform="translate(600 315) scale(1.25) translate(-600 -315)" fill="none" stroke="#1E1822" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+
+    <path d="M600 160A155 155 0 1 1 445 315"/>
+    <path d="M445 315A155 155 0 0 1 562 165" stroke-dasharray="1 18"/>
+    <path d="M574 146l26 14-24 18"/>
+    <circle cx="600" cy="160" r="24" fill="#FFFFFF"/>
+    <circle cx="755" cy="315" r="24" fill="#FFFFFF"/>
+    <circle cx="600" cy="470" r="24" fill="#D3BCDD"/>
+    <circle cx="445" cy="315" r="24" fill="#6A3D7C"/>
+    <path d="M779 315H860"/>
+    <rect x="860" y="280" width="70" height="70" rx="14" fill="#6A3D7C"/>
+    <path d="M880 316l12 12 22-26" stroke="#FAF8FA"/>
+  </g>
+</svg>
